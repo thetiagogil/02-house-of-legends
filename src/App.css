@@ -1,0 +1,691 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Calibri";
+  color: white;
+  background-color: #050d16;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  color: white;
+  background-color: #b39556;
+  border: none;
+  transition-duration: 0.3s;
+}
+
+button:hover {
+  background-color: rgba(128, 101, 21, 0.5);
+}
+
+select {
+  appearance: none;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 0.3rem 0.5rem;
+}
+
+select:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+select option {
+  color: #333;
+  padding-left: 1rem;
+}
+
+select option:disabled {
+  color: lightgray;
+}
+
+select:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+select:focus {
+  border-color: #b39556;
+}
+
+select,
+label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@font-face {
+  font-family: "HarryPotterFont";
+  src: url("./assets/MagicSchool.ttf") format("truetype");
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container > * {
+  margin: 1.5rem;
+}
+
+.container h1 {
+  font-size: 3rem;
+  font-style: italic;
+  color: rgb(220, 220, 220);
+}
+
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(220, 220, 220);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b39556;
+}
+
+/* NAVBAR AND FOOTER */
+.navbar {
+  color: white;
+  background-color: #1d1d1d;
+  text-decoration: none;
+  padding: 0;
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 10;
+}
+
+.navbar-margin {
+  height: 5rem;
+}
+
+.navbar-logo-div {
+  position: absolute;
+  left: 3rem;
+}
+
+.navbar-logo-div img {
+  height: 2rem;
+}
+
+.navbar-text-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-text-div section {
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.navbar-text-div section h3 {
+  color: white;
+  padding: 0.2rem 0.5rem 0.2rem;
+  transition-duration: 0.3s;
+}
+
+.navbar-text-div section h3:hover {
+  color: #b39556;
+}
+
+.navbar-text-div section a.active h3 {
+  color: #b39556;
+}
+
+.footer {
+  color: rgb(116, 116, 116);
+  background-color: #1d1d1d;
+  text-decoration: none;
+  padding: 0;
+  margin-top: 2rem;
+  height: 5.5rem;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footer img {
+  width: 1.5rem;
+  filter: opacity(50%) saturate(0);
+}
+
+.footer div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer div p {
+  margin: 0.5rem
+}
+
+.footer div a {
+  margin: 0.5rem;
+}
+
+/* SEARCH BAR && FILTERS*/
+.search-bar {
+  margin: 0.8rem 2rem 0.8rem;
+}
+.search-bar input {
+  color: #b39556;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.search-bar input::placeholder {
+  color: gray;
+  font-style: italic;
+}
+
+.filter-bar {
+  color: rgb(100, 100, 100);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-width: 10rem;
+}
+
+.filter-bar::before,
+.filter-bar::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgb(100, 100, 100);
+  transform: skewX(-30deg);
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.filter-bar button {
+  margin: 0.8rem 2rem 0.8rem;
+  background-color: transparent;
+}
+
+.filter-bar button:hover {
+  color: #b39556;
+  background-color: transparent;
+}
+
+.filter-bar-hp {
+  color: rgb(100, 100, 100);
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.filter-bar-hp button {
+  margin: 0.8rem 2rem 0.8rem;
+  background-color: transparent;
+  font-family: "HarryPotterFont", sans-serif;
+  letter-spacing: 2px;
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-bar-hp button:hover,
+.active-tab {
+  color: #b39556;
+  background-color: transparent;
+}
+
+.filter-bar-hp img {
+  width: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.filter-bar-items {
+  margin-right: 2rem;
+}
+
+/* HOME PAGE */
+.home-page-section {
+  text-decoration: none;
+  width: 80vw;
+  height: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+#champions img {
+  height: 60rem;
+  margin: 450px -20px 0 -20px;
+  filter: opacity(30%) saturate(0);
+  transition-duration: 0.5s;
+}
+
+#champions h1 {
+  color: white;
+  position: absolute;
+  z-index: 8;
+  margin: 0;
+  text-align: center;
+}
+
+#champions img:hover {
+  filter: opacity(60%) saturate(1);
+}
+
+#items img {
+  height: 65rem;
+  margin: 340px -20px 0 -20px;
+  filter: opacity(30%) saturate(0);
+  transition-duration: 0.5s;
+}
+
+#items h1 {
+  color: white;
+  position: absolute;
+  z-index: 8;
+  margin: 0;
+  text-align: center;
+}
+
+#items img:hover {
+  filter: opacity(60%) saturate(1);
+}
+
+#builds img {
+  height: 65rem;
+  margin: 340px -20px 0 -20px;
+  filter: opacity(30%) saturate(0);
+  transition-duration: 0.5s;
+}
+
+#builds h1 {
+  color: white;
+  position: absolute;
+  z-index: 8;
+  margin: 0;
+  text-align: center;
+}
+
+#builds img:hover {
+  filter: opacity(60%) saturate(1);
+}
+
+/* CHAMPIONS PAGE */
+.champions-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  justify-content: center;
+}
+
+.champions-list li {
+  width: 200px;
+  margin: 3rem;
+  background-color: black;
+  transition: background-color 0.5s;
+}
+
+.champions-list li:hover {
+  background-color: rgba(30, 30, 30, 0.76);
+  transform: translateY(-5px);
+  box-shadow: 0 0 50px rgb(88, 88, 88);
+}
+
+.champions-list p {
+  color: white;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.champions-list img {
+  max-width: 100%;
+}
+
+/* ITEMS PAGE */
+
+.items-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  justify-content: flex-start;
+  margin-right: -3rem;
+  width: 80vw;
+}
+
+.items-list li {
+  list-style: none;
+  width: 30%;
+  margin: 1rem;
+}
+
+.items-box {
+  color: black;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: rgb(220, 220, 220);
+  height: 6rem;
+}
+
+.items-box img {
+  padding-right: 1rem;
+}
+
+.items-box-text {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.items-box-text h3 {
+  margin-bottom: 0.2rem;
+}
+
+.items-box-tags {
+  color: gray;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 5rem;
+}
+
+.items-box-tags p {
+  width: 8rem;
+}
+
+/* MY BUILDS PAGE */
+.mybuilds-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70vw;
+}
+
+.mybuilds-create-button {
+  display: inline-block;
+  border: none;
+  border-radius: 50%;
+  padding: 0.2rem 0.5rem 0.2rem;
+  margin: 0 2rem 0;
+  height: 3rem;
+  width: 3rem;
+  font-size: 2rem;
+}
+
+.mybuilds-hide-button {
+  display: inline-block;
+  border: none;
+  border-radius: 3px;
+  padding: 0.2rem 0.5rem 0.2rem;
+  margin: 0 2rem 0;
+  height: 1.3rem;
+  width: 5rem;
+}
+
+.mybuilds-hide-button:hover,
+.mybuilds-create-button:hover {
+  background-color: rgba(128, 101, 21, 0.5);
+}
+
+.mybuilds-box {
+  color: black;
+  width: 75vw;
+}
+
+.mybuilds-box button {
+  border-radius: 3px;
+  padding: 2px 5px 2px 5px;
+}
+
+/* MY BUILDS PAGE - BOX DISPLAY CHAMPION COMPONENT */
+.mybuilds-champion-box {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin-bottom: 5rem;
+  background-color: rgb(220, 220, 220);
+}
+
+.mybuilds-champion-main-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 2rem 1rem 2rem;
+  flex-wrap: wrap;
+}
+
+.mybuilds-champion-main-div section {
+  display: flex;
+  align-items: center;
+}
+
+.mybuilds-champion-main-div button {
+  margin-left: 2rem;
+}
+
+.mybuilds-champion-main-div img {
+  width: 4rem;
+  margin-right: 2rem;
+}
+
+.mybuilds-champion-main-div section button {
+  float: right;
+  width: 1.2rem;
+}
+
+/* MY BUILDS PAGE - BOX DISPLAY BUILD COMPONENT */
+.mybuilds-build-box {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 1rem;
+}
+
+/* MY BUILDS PAGE - BOX DISPLAY BUILD COMPONENT - MAIN DIV */
+.mybuilds-build-main-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem 0 1rem;
+  flex-wrap: wrap;
+}
+
+.mybuilds-build-main-div section {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.mybuilds-build-main-div img {
+  width: 2rem;
+  margin: 1rem;
+}
+
+.mybuilds-build-wrap-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mybuilds-build-title-box {
+  width: 10rem;
+}
+
+.mybuilds-build-items-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mybuilds-build-item {
+  width: 10rem;
+}
+
+.mybuilds-build-ratio-box {
+  width: 4.5rem;
+}
+
+.mybuilds-build-delete-box {
+  margin: 1rem;
+}
+
+.mybuilds-build-check-box button {
+  width: 1.2rem;
+}
+
+/* MY BUILDS PAGE - BOX DISPLAY BUILD COMPONENT - HIDDEN DIV */
+.mybuilds-build-hidden-div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 3rem 0 1rem 0;
+  flex-wrap: wrap;
+}
+
+.mybuilds-build-hidden-div div {
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+.mybuilds-build-hidden-div-flex {
+  width: 70%;
+  display: flex;
+  align-items: start;
+}
+
+.mybuilds-build-hidden-checkbox {
+  display: flex;
+  justify-content: center;
+}
+
+.mybuilds-build-hidden-checkbox p {
+  margin-right: 0.5rem;
+}
+
+.mybuilds-build-hidden-counter {
+  display: flex;
+  justify-content: center;
+  width: 7rem;
+}
+
+.mybuilds-build-hidden-counter p {
+  width: 4rem;
+}
+
+/* MY BUILDS PAGE - BOX DISPLAY BUILD COMPONENT - HIDDEN DIV */
+.newbuilds-box label {
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.newbuilds-box select,
+.newbuilds-box input {
+  width: 10rem;
+}
+
+.newbuilds-box {
+  color: black;
+  width: 75vw;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: rgb(220, 220, 220);
+}
+
+.newbuilds-champion-div {
+  margin: 1rem 2rem 1rem 2rem;
+}
+
+.newbuilds-content-div {
+  margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.newbuilds-content-div input::placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.newbuilds-content-div input,
+.newbuilds-champion-div select,
+.newbuilds-content-div select {
+  margin-top: 0.5rem;
+}
+
+.newbuilds-content-div label {
+  margin: 1rem;
+}
+
+.newbuilds-content-div input {
+  appearance: none;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 0.3rem 0.5rem;
+}
+
+.newbuilds-content-div input::placeholder {
+  color: gray;
+  font-style: italic;
+}
+
+.mybuilds-submit {
+  display: flex;
+  justify-content: center;
+}
+
+.mybuilds-submit button {
+  border-radius: 3px;
+  padding: 0.5rem;
+  margin: 1rem;
+}
