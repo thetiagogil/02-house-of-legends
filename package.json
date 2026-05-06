@@ -1,7 +1,8 @@
 {
   "name": "house-of-legends",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "A League of Legends champion, item, and build companion built with React, TypeScript, and Vite.",
   "type": "module",
   "scripts": {
     "dev": "vite",
