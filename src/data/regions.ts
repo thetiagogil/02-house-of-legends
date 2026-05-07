@@ -1,6 +1,6 @@
-import type { Region } from "../types/league"
+import type { Region } from "../types/league";
 
-const DEFAULT_REGION: Region = "Runeterra"
+const DEFAULT_REGION: Region = "Runeterra";
 
 export const REGION_LABEL: Record<string, string> = {
   Demacia: "Demacia",
@@ -13,22 +13,25 @@ export const REGION_LABEL: Record<string, string> = {
   Targon: "Mount Targon",
   ShadowIsles: "Shadow Isles",
   Bilgewater: "Bilgewater",
-  Void: "The Void",
-  Bandle: "Bandle City",
+  Void: "Void",
+  BandleCity: "Bandle City",
   Ixtal: "Ixtal",
   Runeterra: "Runeterra",
-}
+};
 
 const REGION_ALIASES: Record<string, Region> = {
-  bandlecity: "Bandle",
+  bandlecity: "BandleCity",
   mounttargon: "Targon",
   shadowisles: "ShadowIsles",
   thevoid: "Void",
-  unaffiliated: "Unaffiliated",
-}
+  unaffiliated: "Runeterra",
+};
 
 function normalizeRegionValue(value: string): string {
-  return value.trim().toLowerCase().replace(/[\s_-]/g, "")
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[\s_-]/g, "");
 }
 
 function formatRegionLabel(value: string): Region | null {
@@ -37,47 +40,57 @@ function formatRegionLabel(value: string): Region | null {
     .replace(/[_-]/g, " ")
     .replace(/\s+/g, " ")
     .split(" ")
-    .filter(Boolean)
+    .filter(Boolean);
 
   if (words.length === 0) {
-    return null
+    return null;
   }
 
-  return words.map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`).join(" ")
+  return words
+    .map(
+      (word) => `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`,
+    )
+    .join(" ");
 }
 
 function normalizeExplicitRegion(value: string): Region | null {
-  const normalizedValue = value.trim().toLowerCase().replace(/[\s_-]/g, "")
+  const normalizedValue = value
+    .trim()
+    .toLowerCase()
+    .replace(/[\s_-]/g, "");
 
   if (!normalizedValue) {
-    return null
+    return null;
   }
 
-  const alias = REGION_ALIASES[normalizedValue]
+  const alias = REGION_ALIASES[normalizedValue];
 
   if (alias) {
-    return alias
+    return alias;
   }
 
   const knownRegion = Object.entries(REGION_LABEL).find(([region, label]) => {
-    return normalizeRegionValue(region) === normalizedValue || normalizeRegionValue(label) === normalizedValue
-  })?.[0]
+    return (
+      normalizeRegionValue(region) === normalizedValue ||
+      normalizeRegionValue(label) === normalizedValue
+    );
+  })?.[0];
 
-  return knownRegion ?? formatRegionLabel(value)
+  return knownRegion ?? formatRegionLabel(value);
 }
 
 export function getRegionLabel(region: Region): string {
-  return REGION_LABEL[region] ?? region
+  return REGION_LABEL[region] ?? region;
 }
 
 export function normalizeRegion(explicitRegion?: string): Region {
   if (explicitRegion) {
-    const knownRegion = normalizeExplicitRegion(explicitRegion)
+    const knownRegion = normalizeExplicitRegion(explicitRegion);
 
     if (knownRegion) {
-      return knownRegion
+      return knownRegion;
     }
   }
 
-  return DEFAULT_REGION
+  return DEFAULT_REGION;
 }

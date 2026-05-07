@@ -1,21 +1,21 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
+import { FilterButton } from "../components/FilterButton"
 import { Icon } from "../components/Icon"
 import { SearchBar } from "../components/SearchBar"
-import {
-  calculateWinRate,
-  deleteBuild,
-  getWinRateClass,
-  readBuilds,
-  updateBuild,
-} from "../services/buildStorage"
+import { calculateWinRate, deleteBuild, getWinRateClass, readBuilds, updateBuild } from "../services/buildStorage"
 import { championImages, getVersion, itemImage } from "../services/ddragon"
 import type { Build } from "../types/league"
+
+type BuildSort = "Newest" | "Champion" | "Win Rate" | "Games" | "Cost"
+
+const SORT_OPTIONS: BuildSort[] = ["Newest", "Champion", "Win Rate", "Games", "Cost"]
 
 export function BuildsPage() {
   const [builds, setBuilds] = useState<Build[]>(() => readBuilds())
   const [version, setVersion] = useState("")
   const [search, setSearch] = useState("")
+  const [sort, setSort] = useState<BuildSort>("Newest")
 
   useEffect(() => {
     function refreshBuilds() {
@@ -51,25 +51,61 @@ export function BuildsPage() {
     }
   }, [])
 
-  const groupedBuilds = useMemo(() => {
+  const visibleBuilds = useMemo(() => {
     const query = search.trim().toLowerCase()
-    const filteredBuilds = builds.filter((build) => !query || build.champion.name.toLowerCase().includes(query))
+
+    return builds
+      .filter((build) => {
+        if (!query) {
+          return true
+        }
+
+        return build.title.toLowerCase().includes(query) || build.champion.name.toLowerCase().includes(query)
+      })
+      .sort((firstBuild, secondBuild) => {
+        if (sort === "Champion") {
+          return firstBuild.champion.name.localeCompare(secondBuild.champion.name)
+        }
+
+        if (sort === "Win Rate") {
+          return calculateWinRate(secondBuild) - calculateWinRate(firstBuild)
+        }
+
+        if (sort === "Games") {
+          return secondBuild.win + secondBuild.loss - (firstBuild.win + firstBuild.loss)
+        }
+
+        if (sort === "Cost") {
+          return getBuildCost(secondBuild) - getBuildCost(firstBuild)
+        }
+
+        return secondBuild.createdAt - firstBuild.createdAt
+      })
+  }, [builds, search, sort])
+
+  const groupedBuilds = useMemo(() => {
     const groups = new Map<string, Build[]>()
 
-    for (const build of filteredBuilds) {
-      const currentGroup = groups.get(build.champion.name) ?? []
-      groups.set(build.champion.name, [...currentGroup, build])
-    }
+    visibleBuilds.forEach((build) => {
+      const currentBuilds = groups.get(build.champion.id) ?? []
+      groups.set(build.champion.id, [...currentBuilds, build])
+    })
 
-    return Array.from(groups.entries()).sort((firstGroup, secondGroup) => firstGroup[0].localeCompare(secondGroup[0]))
-  }, [builds, search])
+    return Array.from(groups.entries())
+      .map(([championId, championBuilds]) => ({
+        championId,
+        champion: championBuilds[0].champion,
+        builds: championBuilds,
+      }))
+      .sort((firstGroup, secondGroup) => firstGroup.champion.name.localeCompare(secondGroup.champion.name))
+  }, [visibleBuilds])
 
   function refreshBuilds() {
     setBuilds(readBuilds())
   }
 
   return (
-    <div className="page-container page-container--narrow">
+    <div className="page-container">
       <header className="page-header">
         <h1>Builds</h1>
         <p>
@@ -77,12 +113,22 @@ export function BuildsPage() {
         </p>
       </header>
 
-      <section className="build-toolbar">
-        <SearchBar value={search} onChange={setSearch} placeholder="Search for a build..." />
+      <section className="build-toolbar build-toolbar--cards">
+        <SearchBar value={search} onChange={setSearch} placeholder="Search champion or build..." />
         <Link to="/builds/new" aria-label="Create build" className="round-action">
           <Icon name="plus" />
         </Link>
       </section>
+
+      {builds.length > 0 && (
+        <div className="filter-row build-sort-row">
+          {SORT_OPTIONS.map((option) => (
+            <FilterButton key={option} active={sort === option} onClick={() => setSort(option)}>
+              {option}
+            </FilterButton>
+          ))}
+        </div>
+      )}
 
       {builds.length === 0 && (
         <div className="empty-state empty-state--large">
@@ -93,52 +139,55 @@ export function BuildsPage() {
         </div>
       )}
 
-      {builds.length > 0 && groupedBuilds.length === 0 && (
+      {builds.length > 0 && visibleBuilds.length === 0 && (
         <div className="empty-state">
           <h2>No builds match your search.</h2>
-          <p>Try searching for another champion.</p>
+          <p>Try another champion or title.</p>
         </div>
       )}
 
-      <div className="build-groups">
-        {groupedBuilds.map(([championName, championBuilds]) => (
-          <ChampionBuildGroup
-            key={championName}
-            championName={championName}
-            championId={championBuilds[0].champion.id}
-            builds={championBuilds}
-            version={version}
-            onChange={refreshBuilds}
-          />
-        ))}
-      </div>
+      {visibleBuilds.length > 0 && (
+        <div className="build-groups">
+          {groupedBuilds.map((group) => (
+            <BuildGroup key={group.championId} champion={group.champion} builds={group.builds} version={version} onChange={refreshBuilds} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
 
-type ChampionBuildGroupProps = {
-  championName: string
-  championId: string
+function getBuildCost(build: Build): number {
+  return build.items.reduce((total, item) => total + item.price, 0)
+}
+
+type BuildCardProps = {
+  build: Build
+  version: string
+  onChange: () => void
+}
+
+type BuildGroupProps = {
+  champion: Build["champion"]
   builds: Build[]
   version: string
   onChange: () => void
 }
 
-function ChampionBuildGroup({ championName, championId, builds, version, onChange }: ChampionBuildGroupProps) {
-  const [isOpen, setIsOpen] = useState(true)
+function BuildGroup({ champion, builds, version, onChange }: BuildGroupProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const totalGames = builds.reduce((total, build) => total + build.win + build.loss, 0)
 
   return (
-    <section className="build-group">
-      <button type="button" onClick={() => setIsOpen(!isOpen)} className="build-group__header">
-        <img src={championImages.tile(championId)} alt={championName} />
-        <span className="build-group__title">
-          <span>
-            {championName} <strong>Builds</strong>
-          </span>
+    <article className="build-group">
+      <button type="button" className="build-group__header" onClick={() => setIsOpen((currentValue) => !currentValue)} aria-expanded={isOpen}>
+        <img src={championImages.tile(champion.id)} alt="" loading="lazy" />
+        <div className="build-group__title">
+          <span>{champion.name}</span>
           <small>
-            {builds.length} {builds.length === 1 ? "build" : "builds"}
+            <strong>{builds.length}</strong> {builds.length === 1 ? "build" : "builds"} / {totalGames} games
           </small>
-        </span>
+        </div>
         <Icon name={isOpen ? "chevron-up" : "chevron-down"} className="build-group__icon" />
       </button>
 
@@ -149,22 +198,16 @@ function ChampionBuildGroup({ championName, championId, builds, version, onChang
           ))}
         </div>
       )}
-    </section>
+    </article>
   )
 }
 
-type BuildRowProps = {
-  build: Build
-  version: string
-  onChange: () => void
-}
-
-function BuildRow({ build, version, onChange }: BuildRowProps) {
-  const [isOpen, setIsOpen] = useState(false)
+function BuildRow({ build, version, onChange }: BuildCardProps) {
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false)
+  const [showRecordControls, setShowRecordControls] = useState(false)
   const games = build.win + build.loss
   const rate = calculateWinRate(build)
-  const totalCost = build.items.reduce((total, item) => total + item.price, 0)
+  const totalCost = getBuildCost(build)
 
   function changeWins(delta: number) {
     updateBuild(build.id, { win: Math.max(0, build.win + delta) })
@@ -187,31 +230,48 @@ function BuildRow({ build, version, onChange }: BuildRowProps) {
   }
 
   return (
-    <article className="build-row">
+    <div className="build-row">
       <div className="build-row__summary">
-        <h3>{build.title}</h3>
+        <div className="build-row__title">
+          <h3>{build.title}</h3>
+          <small>{new Date(build.createdAt).toLocaleDateString()}</small>
+        </div>
 
         <div className="build-row__items">
-          {build.items.map((item) =>
+          {build.items.map((item, index) =>
             version ? (
-              <img key={item.id} src={itemImage(version, `${item.id}.png`)} alt={item.name} title={item.name} />
+              <img key={`${item.id}-${index}`} src={itemImage(version, `${item.id}.png`)} alt={item.name} title={item.name} loading="lazy" />
             ) : (
-              <span key={item.id} className="build-row__item-placeholder" title={item.name} />
+              <span key={`${item.id}-${index}`} className="build-row__item-placeholder" title={item.name} />
             ),
           )}
         </div>
 
+        <div className="build-row__stats">
+          <BuildStat label="Cost" value={`${totalCost.toLocaleString()}g`} />
+          <BuildStat label="Record" value={`${build.win}W / ${build.loss}L`} />
+          <div className="build-stat">
+            <p>Win Rate</p>
+            <strong className={getWinRateClass(rate, games)}>{rate}%</strong>
+          </div>
+        </div>
+
         <div className="build-row__actions">
-          <span className={getWinRateClass(rate, games)}>{rate}%</span>
-          <button type="button" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle build details">
-            <Icon name={isOpen ? "chevron-up" : "chevron-down"} size={16} />
+          <button
+            type="button"
+            onClick={() => setShowRecordControls((currentValue) => !currentValue)}
+            className={showRecordControls ? "build-row__icon-action build-row__icon-action--active" : "build-row__icon-action"}
+            aria-label={showRecordControls ? "Hide record controls" : "Edit record"}
+            title={showRecordControls ? "Hide record controls" : "Edit record"}
+          >
+            <Icon name="edit" size={16} />
           </button>
           <button
             type="button"
             onClick={handleDelete}
             onMouseLeave={() => setIsConfirmingDelete(false)}
             aria-label="Delete build"
-            className={isConfirmingDelete ? "danger-action danger-action--confirming" : "danger-action"}
+            className={isConfirmingDelete ? "build-row__icon-action danger-action danger-action--confirming" : "build-row__icon-action danger-action"}
             title={isConfirmingDelete ? "Click again to confirm" : "Delete"}
           >
             <Icon name="trash" size={16} />
@@ -219,15 +279,13 @@ function BuildRow({ build, version, onChange }: BuildRowProps) {
         </div>
       </div>
 
-      {isOpen && (
-        <div className="build-row__details">
-          <BuildStat label="Total Cost" value={`${totalCost.toLocaleString()}g`} />
-          <BuildStat label="Games" value={games} />
+      {showRecordControls && (
+        <div className="build-row__record-edit" aria-label="Edit record">
           <CounterStat label="Wins" value={build.win} onAdd={() => changeWins(1)} onSubtract={() => changeWins(-1)} />
           <CounterStat label="Losses" value={build.loss} onAdd={() => changeLosses(1)} onSubtract={() => changeLosses(-1)} />
         </div>
       )}
-    </article>
+    </div>
   )
 }
 

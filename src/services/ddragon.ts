@@ -235,6 +235,10 @@ function classifyItem(item: DataDragonItem): ItemCategory {
 }
 
 function isVisibleItem(item: Item): boolean {
+  if (Number(item.id) >= 100000) {
+    return false
+  }
+
   if (!item.gold.purchasable) {
     return false
   }
