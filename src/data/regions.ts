@@ -1,6 +1,8 @@
 import type { Region } from "../types/league"
 
-export const REGION_LABEL: Record<Region, string> = {
+const DEFAULT_REGION: Region = "Runeterra"
+
+export const REGION_LABEL: Record<string, string> = {
   Demacia: "Demacia",
   Noxus: "Noxus",
   Ionia: "Ionia",
@@ -17,178 +19,65 @@ export const REGION_LABEL: Record<Region, string> = {
   Runeterra: "Runeterra",
 }
 
-export const CHAMPION_REGION: Record<string, Region> = {
-  Aatrox: "Runeterra",
-  Ahri: "Ionia",
-  Akali: "Ionia",
-  Akshan: "Shurima",
-  Alistar: "Runeterra",
-  Ambessa: "Noxus",
-  Amumu: "Shurima",
-  Anivia: "Freljord",
-  Annie: "Noxus",
-  Aphelios: "Targon",
-  Ashe: "Freljord",
-  AurelionSol: "Targon",
-  Aurora: "Freljord",
-  Azir: "Shurima",
-  Bard: "Runeterra",
-  Belveth: "Void",
-  Blitzcrank: "Zaun",
-  Brand: "Runeterra",
-  Braum: "Freljord",
-  Briar: "Noxus",
-  Caitlyn: "Piltover",
-  Camille: "Piltover",
-  Cassiopeia: "Noxus",
-  Chogath: "Void",
-  Corki: "Bandle",
-  Darius: "Noxus",
-  Diana: "Targon",
-  DrMundo: "Zaun",
-  Draven: "Noxus",
-  Ekko: "Zaun",
-  Elise: "ShadowIsles",
-  Evelynn: "Runeterra",
-  Ezreal: "Piltover",
-  Fiddlesticks: "Runeterra",
-  Fiora: "Demacia",
-  Fizz: "Bilgewater",
-  Galio: "Demacia",
-  Gangplank: "Bilgewater",
-  Garen: "Demacia",
-  Gnar: "Freljord",
-  Gragas: "Freljord",
-  Graves: "Bilgewater",
-  Gwen: "ShadowIsles",
-  Hecarim: "ShadowIsles",
-  Heimerdinger: "Piltover",
-  Hwei: "Ionia",
-  Illaoi: "Bilgewater",
-  Irelia: "Ionia",
-  Ivern: "Runeterra",
-  Janna: "Zaun",
-  JarvanIV: "Demacia",
-  Jax: "Runeterra",
-  Jayce: "Piltover",
-  Jhin: "Ionia",
-  Jinx: "Zaun",
-  KSante: "Shurima",
-  Kaisa: "Void",
-  Kalista: "ShadowIsles",
-  Karma: "Ionia",
-  Karthus: "ShadowIsles",
-  Kassadin: "Void",
-  Katarina: "Noxus",
-  Kayle: "Demacia",
-  Kayn: "Ionia",
-  Kennen: "Ionia",
-  Khazix: "Void",
-  Kindred: "Runeterra",
-  Kled: "Noxus",
-  KogMaw: "Void",
-  Leblanc: "Noxus",
-  LeeSin: "Ionia",
-  Leona: "Targon",
-  Lillia: "Ionia",
-  Lissandra: "Freljord",
-  Lucian: "Demacia",
-  Lulu: "Bandle",
-  Lux: "Demacia",
-  Malphite: "Ixtal",
-  Malzahar: "Void",
-  Maokai: "ShadowIsles",
-  MasterYi: "Ionia",
-  Milio: "Ixtal",
-  MissFortune: "Bilgewater",
-  MonkeyKing: "Ionia",
-  Mordekaiser: "Noxus",
-  Morgana: "Demacia",
-  Naafiri: "Shurima",
-  Nami: "Runeterra",
-  Nasus: "Shurima",
-  Nautilus: "Bilgewater",
-  Neeko: "Ixtal",
-  Nidalee: "Ixtal",
-  Nilah: "Bilgewater",
-  Nocturne: "Runeterra",
-  Nunu: "Freljord",
-  Olaf: "Freljord",
-  Orianna: "Piltover",
-  Ornn: "Freljord",
-  Pantheon: "Targon",
-  Poppy: "Demacia",
-  Pyke: "Bilgewater",
-  Qiyana: "Ixtal",
-  Quinn: "Demacia",
-  Rakan: "Ionia",
-  Rammus: "Shurima",
-  RekSai: "Void",
-  Rell: "Noxus",
-  Renata: "Zaun",
-  Renekton: "Shurima",
-  Rengar: "Ixtal",
-  Riven: "Noxus",
-  Rumble: "Bandle",
-  Ryze: "Runeterra",
-  Samira: "Noxus",
-  Sejuani: "Freljord",
-  Senna: "Demacia",
-  Seraphine: "Piltover",
-  Sett: "Ionia",
-  Shaco: "Runeterra",
-  Shen: "Ionia",
-  Shyvana: "Demacia",
-  Singed: "Zaun",
-  Sion: "Noxus",
-  Sivir: "Shurima",
-  Skarner: "Ixtal",
-  Smolder: "Targon",
-  Sona: "Demacia",
-  Soraka: "Targon",
-  Swain: "Noxus",
-  Sylas: "Demacia",
-  Syndra: "Ionia",
-  TahmKench: "Runeterra",
-  Taliyah: "Shurima",
-  Talon: "Noxus",
-  Taric: "Targon",
-  Teemo: "Bandle",
-  Thresh: "ShadowIsles",
-  Tristana: "Bandle",
-  Trundle: "Freljord",
-  Tryndamere: "Freljord",
-  TwistedFate: "Bilgewater",
-  Twitch: "Zaun",
-  Udyr: "Freljord",
-  Urgot: "Zaun",
-  Varus: "Ionia",
-  Vayne: "Demacia",
-  Veigar: "Bandle",
-  Velkoz: "Void",
-  Vex: "ShadowIsles",
-  Vi: "Piltover",
-  Viego: "ShadowIsles",
-  Viktor: "Zaun",
-  Vladimir: "Noxus",
-  Volibear: "Freljord",
-  Warwick: "Zaun",
-  Xayah: "Ionia",
-  Xerath: "Shurima",
-  XinZhao: "Demacia",
-  Yasuo: "Ionia",
-  Yone: "Ionia",
-  Yorick: "ShadowIsles",
-  Yuumi: "Bandle",
-  Zac: "Zaun",
-  Zed: "Ionia",
-  Zeri: "Zaun",
-  Ziggs: "Bandle",
-  Zilean: "Runeterra",
-  Zoe: "Targon",
-  Zyra: "Ixtal",
+const REGION_ALIASES: Record<string, Region> = {
+  bandlecity: "Bandle",
+  mounttargon: "Targon",
+  shadowisles: "ShadowIsles",
+  thevoid: "Void",
+  unaffiliated: "Unaffiliated",
 }
 
-export function getRegion(championId: string): Region {
-  return CHAMPION_REGION[championId] ?? "Runeterra"
+function normalizeRegionValue(value: string): string {
+  return value.trim().toLowerCase().replace(/[\s_-]/g, "")
+}
+
+function formatRegionLabel(value: string): Region | null {
+  const words = value
+    .trim()
+    .replace(/[_-]/g, " ")
+    .replace(/\s+/g, " ")
+    .split(" ")
+    .filter(Boolean)
+
+  if (words.length === 0) {
+    return null
+  }
+
+  return words.map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`).join(" ")
+}
+
+function normalizeExplicitRegion(value: string): Region | null {
+  const normalizedValue = value.trim().toLowerCase().replace(/[\s_-]/g, "")
+
+  if (!normalizedValue) {
+    return null
+  }
+
+  const alias = REGION_ALIASES[normalizedValue]
+
+  if (alias) {
+    return alias
+  }
+
+  const knownRegion = Object.entries(REGION_LABEL).find(([region, label]) => {
+    return normalizeRegionValue(region) === normalizedValue || normalizeRegionValue(label) === normalizedValue
+  })?.[0]
+
+  return knownRegion ?? formatRegionLabel(value)
+}
+
+export function getRegionLabel(region: Region): string {
+  return REGION_LABEL[region] ?? region
+}
+
+export function normalizeRegion(explicitRegion?: string): Region {
+  if (explicitRegion) {
+    const knownRegion = normalizeExplicitRegion(explicitRegion)
+
+    if (knownRegion) {
+      return knownRegion
+    }
+  }
+
+  return DEFAULT_REGION
 }

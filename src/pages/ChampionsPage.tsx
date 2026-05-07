@@ -6,7 +6,7 @@ import { HouseIcon } from "../components/HouseIcon"
 import { LoadingState } from "../components/LoadingState"
 import { SearchBar } from "../components/SearchBar"
 import { HOUSES, houseStyles } from "../data/houses"
-import { REGION_LABEL } from "../data/regions"
+import { getRegionLabel } from "../data/regions"
 import { championImages, fetchChampions } from "../services/ddragon"
 import type { ChampionSummary, House, Region } from "../types/league"
 
@@ -53,7 +53,9 @@ export function ChampionsPage() {
   }, [champions])
 
   const allRegions = useMemo(() => {
-    return Array.from(new Set(champions.map((champion) => champion.region))).sort() as Region[]
+    return Array.from(new Set(champions.map((champion) => champion.region))).sort((firstRegion, secondRegion) =>
+      getRegionLabel(firstRegion).localeCompare(getRegionLabel(secondRegion)),
+    ) as Region[]
   }, [champions])
 
   const filteredChampions = useMemo(() => {
@@ -116,7 +118,7 @@ export function ChampionsPage() {
         <details className="region-filter">
           <summary>
             Filter by region
-            {region && <span> - {REGION_LABEL[region]}</span>}
+            {region && <span> - {getRegionLabel(region)}</span>}
           </summary>
           <div className="filter-row region-filter__list">
             {allRegions.map((currentRegion) => (
@@ -125,7 +127,7 @@ export function ChampionsPage() {
                 active={region === currentRegion}
                 onClick={() => setRegion(region === currentRegion ? null : currentRegion)}
               >
-                {REGION_LABEL[currentRegion]}
+                {getRegionLabel(currentRegion)}
               </FilterButton>
             ))}
           </div>
@@ -179,7 +181,7 @@ export function ChampionsPage() {
                 <span className="champion-card__content">
                   <span className="champion-card__name">{champion.name}</span>
                   <span className="champion-card__title">{champion.title}</span>
-                  <span className="champion-card__region">{REGION_LABEL[champion.region]}</span>
+                  <span className="champion-card__region">{getRegionLabel(champion.region)}</span>
                 </span>
               </span>
             </Link>

@@ -1,4 +1,4 @@
-import { REGION_LABEL } from "../data/regions"
+import { getRegionLabel } from "../data/regions"
 import type { Region } from "../types/league"
 
 type RegionBadgeProps = {
@@ -6,5 +6,5 @@ type RegionBadgeProps = {
 }
 
 export function RegionBadge({ region }: RegionBadgeProps) {
-  return <span className="region-badge">{REGION_LABEL[region]}</span>
+  return <span className="region-badge">{getRegionLabel(region)}</span>
 }

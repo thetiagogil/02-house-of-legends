@@ -559,8 +559,8 @@ option {
 }
 
 .house-card__sigil {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 .house-card__name {
@@ -615,8 +615,8 @@ option {
 }
 
 .house-badge__icon {
-  width: 0.875rem;
-  height: 0.875rem;
+  width: 1rem;
+  height: 1rem;
   flex: 0 0 auto;
 }
 

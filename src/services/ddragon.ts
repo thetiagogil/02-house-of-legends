@@ -1,5 +1,6 @@
 import { getHouseForChampion } from "../data/houses"
-import { getRegion } from "../data/regions"
+import { normalizeRegion } from "../data/regions"
+import { fetchChampionFactions, getChampionFaction } from "./universe"
 import type {
   ChampionDetail,
   ChampionInfo,
@@ -24,6 +25,8 @@ type DataDragonChampionSummary = {
   blurb: string
   info: ChampionInfo
   tags: string[]
+  region?: string
+  faction?: string
 }
 
 type DataDragonChampionDetail = DataDragonChampionSummary & {
@@ -115,8 +118,11 @@ export async function getVersion(): Promise<string> {
   return versionPromise
 }
 
-function mapChampionSummary(champion: DataDragonChampionSummary): ChampionSummary {
-  const region = getRegion(champion.id)
+function mapChampionSummary(
+  champion: DataDragonChampionSummary,
+  explicitRegion?: string,
+): ChampionSummary {
+  const region = normalizeRegion(explicitRegion ?? champion.region ?? champion.faction)
 
   return {
     id: champion.id,
@@ -139,12 +145,13 @@ function mapChampionSummary(champion: DataDragonChampionSummary): ChampionSummar
 export async function fetchChampions(): Promise<ChampionSummary[]> {
   if (!championsPromise) {
     championsPromise = getVersion().then(async (version) => {
-      const data = await fetchJson<ChampionListResponse>(
-        `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`,
-      )
+      const [data, factions] = await Promise.all([
+        fetchJson<ChampionListResponse>(`https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`),
+        fetchChampionFactions(),
+      ])
 
       return Object.values(data.data)
-        .map(mapChampionSummary)
+        .map((champion) => mapChampionSummary(champion, getChampionFaction(factions, champion)))
         .sort((a, b) => a.name.localeCompare(b.name))
     })
   }
@@ -160,9 +167,12 @@ export async function fetchChampion(championId: string): Promise<ChampionDetail>
   }
 
   const promise = getVersion().then(async (version) => {
-    const data = await fetchJson<ChampionDetailResponse>(
-      `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${championId}.json`,
-    )
+    const [data, factions] = await Promise.all([
+      fetchJson<ChampionDetailResponse>(
+        `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${championId}.json`,
+      ),
+      fetchChampionFactions(),
+    ])
     const champion = data.data[championId]
 
     if (!champion) {
@@ -170,7 +180,7 @@ export async function fetchChampion(championId: string): Promise<ChampionDetail>
     }
 
     return {
-      ...mapChampionSummary(champion),
+      ...mapChampionSummary(champion, getChampionFaction(factions, champion)),
       lore: champion.lore,
       skins: champion.skins,
       spells: champion.spells.map((spell) => ({

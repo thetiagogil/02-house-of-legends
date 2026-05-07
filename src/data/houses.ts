@@ -27,7 +27,7 @@ const roleScores: Record<string, Partial<HouseScores>> = {
   Tank: { Hufflepuff: 2, Gryffindor: 2 },
 }
 
-const regionScores: Record<Region, Partial<HouseScores>> = {
+const regionScores: Partial<Record<Region, Partial<HouseScores>>> = {
   Demacia: { Gryffindor: 3, Hufflepuff: 1 },
   Noxus: { Slytherin: 3, Gryffindor: 1 },
   Ionia: { Hufflepuff: 3, Ravenclaw: 1 },
@@ -63,7 +63,7 @@ export function getHouseForChampion({ id, tags, info, region }: HouseScoreInput)
     Slytherin: 0,
   }
 
-  addScores(scores, regionScores[region])
+  addScores(scores, regionScores[region] ?? {})
 
   for (const tag of tags) {
     addScores(scores, roleScores[tag] ?? {})

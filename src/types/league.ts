@@ -1,20 +1,6 @@
 export type House = "Gryffindor" | "Hufflepuff" | "Ravenclaw" | "Slytherin"
 
-export type Region =
-  | "Demacia"
-  | "Noxus"
-  | "Ionia"
-  | "Freljord"
-  | "Piltover"
-  | "Zaun"
-  | "Shurima"
-  | "Targon"
-  | "ShadowIsles"
-  | "Bilgewater"
-  | "Void"
-  | "Bandle"
-  | "Ixtal"
-  | "Runeterra"
+export type Region = string
 
 export type ChampionInfo = {
   attack: number
