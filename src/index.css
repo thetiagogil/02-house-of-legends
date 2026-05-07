@@ -2461,6 +2461,10 @@ option {
     font-size: 0.875rem;
   }
 
+  .navbar__inner {
+    width: min(calc(100% - 3rem), 80rem);
+  }
+
   .page-container {
     width: min(calc(100% - 3rem), 80rem);
     padding-top: 2.5rem;
@@ -2615,17 +2619,32 @@ option {
 
 @media (max-width: 520px) {
   .navbar__inner {
-    width: min(calc(100% - 1rem), 80rem);
-    justify-content: flex-start;
+    width: min(calc(100% - 2rem), 80rem);
+    justify-content: space-between;
+    gap: 0.75rem;
   }
 
   .brand-link {
+    display: inline-flex;
+    flex: 0 0 auto;
+  }
+
+  .brand-mark {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8125rem;
+  }
+
+  .brand-name {
     display: none;
   }
 
   .nav-links {
     width: auto;
-    gap: 1.25rem;
+    flex: 0 1 auto;
+    justify-content: flex-end;
+    gap: 0.875rem;
+    min-width: 0;
   }
 
   .nav-link {

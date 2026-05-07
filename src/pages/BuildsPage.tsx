@@ -181,7 +181,7 @@ function BuildGroup({ champion, builds, version, onChange }: BuildGroupProps) {
   return (
     <article className="build-group">
       <button type="button" className="build-group__header" onClick={() => setIsOpen((currentValue) => !currentValue)} aria-expanded={isOpen}>
-        <img src={championImages.tile(champion.id)} alt="" loading="lazy" />
+        <img src={championImages.tile(champion.id)} alt="" />
         <div className="build-group__title">
           <span>{champion.name}</span>
           <small>
