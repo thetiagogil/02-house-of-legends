@@ -1,5 +1,6 @@
-import { houseSigils } from "../data/houses"
+import { houseStyles } from "../data/houses"
 import type { House } from "../types/league"
+import { HouseIcon } from "./HouseIcon"
 
 type HouseBadgeProps = {
   house: House
@@ -7,11 +8,11 @@ type HouseBadgeProps = {
 }
 
 export function HouseBadge({ house, size = "small" }: HouseBadgeProps) {
-  const houseStyle = houseSigils[house]
+  const houseStyle = houseStyles[house]
 
   return (
     <span className={`house-badge ${houseStyle.className} house-badge--${size}`}>
-      <span aria-hidden="true">{houseStyle.sigil}</span>
+      <HouseIcon house={house} className="house-badge__icon" />
       {house}
     </span>
   )

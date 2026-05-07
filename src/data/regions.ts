@@ -1,21 +1,4 @@
-import type { House, Region } from "../types/league"
-
-export const REGION_TO_HOUSE: Record<Region, House> = {
-  Demacia: "Gryffindor",
-  Bilgewater: "Gryffindor",
-  Targon: "Gryffindor",
-  Bandle: "Gryffindor",
-  Piltover: "Ravenclaw",
-  Zaun: "Ravenclaw",
-  Ixtal: "Ravenclaw",
-  Shurima: "Ravenclaw",
-  Ionia: "Hufflepuff",
-  Freljord: "Hufflepuff",
-  Noxus: "Slytherin",
-  ShadowIsles: "Slytherin",
-  Void: "Slytherin",
-  Runeterra: "Slytherin",
-}
+import type { Region } from "../types/league"
 
 export const REGION_LABEL: Record<Region, string> = {
   Demacia: "Demacia",
@@ -208,8 +191,4 @@ export const CHAMPION_REGION: Record<string, Region> = {
 
 export function getRegion(championId: string): Region {
   return CHAMPION_REGION[championId] ?? "Runeterra"
-}
-
-export function getHouseByRegion(championId: string): House {
-  return REGION_TO_HOUSE[getRegion(championId)]
 }

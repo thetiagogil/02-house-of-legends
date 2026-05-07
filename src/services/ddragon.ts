@@ -1,4 +1,5 @@
-import { getHouseByRegion, getRegion } from "../data/regions"
+import { getHouseForChampion } from "../data/houses"
+import { getRegion } from "../data/regions"
 import type {
   ChampionDetail,
   ChampionInfo,
@@ -115,6 +116,8 @@ export async function getVersion(): Promise<string> {
 }
 
 function mapChampionSummary(champion: DataDragonChampionSummary): ChampionSummary {
+  const region = getRegion(champion.id)
+
   return {
     id: champion.id,
     key: champion.key,
@@ -123,8 +126,13 @@ function mapChampionSummary(champion: DataDragonChampionSummary): ChampionSummar
     blurb: champion.blurb,
     info: champion.info,
     tags: champion.tags,
-    house: getHouseByRegion(champion.id),
-    region: getRegion(champion.id),
+    house: getHouseForChampion({
+      id: champion.id,
+      tags: champion.tags,
+      info: champion.info,
+      region,
+    }),
+    region,
   }
 }
 

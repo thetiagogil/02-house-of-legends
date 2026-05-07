@@ -359,7 +359,7 @@ option {
 .home-tile__image {
   position: absolute;
   inset: 0;
-  background-position: center;
+  background-position: center 20%;
   background-size: cover;
   filter: saturate(0.5) brightness(0.45);
   transform: scale(1.05);
@@ -559,8 +559,8 @@ option {
 }
 
 .house-card__sigil {
-  font-size: 2.25rem;
-  line-height: 1;
+  width: 2.75rem;
+  height: 2.75rem;
 }
 
 .house-card__name {
@@ -595,7 +595,7 @@ option {
 .house-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
   border: 1px solid currentColor;
   border-radius: 999px;
   background: rgb(8 13 22 / 0.4);
@@ -612,6 +612,26 @@ option {
 .house-badge--medium {
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
+}
+
+.house-badge__icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex: 0 0 auto;
+}
+
+.region-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid color-mix(in oklab, var(--gold) 55%, transparent);
+  border-radius: 999px;
+  background: rgb(8 13 22 / 0.4);
+  color: var(--gold);
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-magic);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(8px);
 }
 
 .champions-grid {
@@ -648,6 +668,7 @@ option {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   transition: transform 500ms ease;
 }
 
@@ -832,6 +853,7 @@ option {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
 }
 
 .skin-hero__visual--blur {
@@ -968,18 +990,6 @@ option {
   justify-content: center;
   gap: 0.75rem;
   margin-top: 1rem;
-}
-
-.champion-panel__meta > span {
-  color: var(--muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-}
-
-.champion-panel__meta strong {
-  color: color-mix(in oklab, var(--gold) 90%, transparent);
-  font-weight: 600;
 }
 
 .champion-panel__grid {

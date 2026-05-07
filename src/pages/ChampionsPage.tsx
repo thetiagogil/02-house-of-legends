@@ -2,9 +2,10 @@ import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { FilterButton } from "../components/FilterButton"
 import { HouseBadge } from "../components/HouseBadge"
+import { HouseIcon } from "../components/HouseIcon"
 import { LoadingState } from "../components/LoadingState"
 import { SearchBar } from "../components/SearchBar"
-import { HOUSES, houseSigils } from "../data/houses"
+import { HOUSES, houseStyles } from "../data/houses"
 import { REGION_LABEL } from "../data/regions"
 import { championImages, fetchChampions } from "../services/ddragon"
 import type { ChampionSummary, House, Region } from "../types/league"
@@ -115,7 +116,7 @@ export function ChampionsPage() {
         <details className="region-filter">
           <summary>
             Filter by region
-            {region && <span> — {REGION_LABEL[region]}</span>}
+            {region && <span> - {REGION_LABEL[region]}</span>}
           </summary>
           <div className="filter-row region-filter__list">
             {allRegions.map((currentRegion) => (
@@ -133,18 +134,16 @@ export function ChampionsPage() {
         <div className="house-grid">
           {HOUSES.map((currentHouse) => {
             const isActive = house === currentHouse
-            const sigil = houseSigils[currentHouse]
+            const houseStyle = houseStyles[currentHouse]
 
             return (
               <button
                 key={currentHouse}
                 type="button"
                 onClick={() => setHouse(isActive ? null : currentHouse)}
-                className={isActive ? `house-card house-card--active ${sigil.className}` : `house-card ${sigil.className}`}
+                className={isActive ? `house-card house-card--active ${houseStyle.className}` : `house-card ${houseStyle.className}`}
               >
-                <span className="house-card__sigil" aria-hidden="true">
-                  {sigil.sigil}
-                </span>
+                <HouseIcon house={currentHouse} className="house-card__sigil" />
                 <span className="house-card__name">{currentHouse}</span>
               </button>
             )

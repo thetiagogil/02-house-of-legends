@@ -4,8 +4,8 @@ import { ErrorState } from "../components/ErrorState"
 import { HouseBadge } from "../components/HouseBadge"
 import { Icon } from "../components/Icon"
 import { LoadingState } from "../components/LoadingState"
+import { RegionBadge } from "../components/RegionBadge"
 import { StatBar } from "../components/StatBar"
-import { REGION_LABEL } from "../data/regions"
 import { championImages, fetchChampion, fetchChampions } from "../services/ddragon"
 import type { ChampionDetail, ChampionSummary } from "../types/league"
 
@@ -145,9 +145,7 @@ export function ChampionDetailsPage() {
             <h1>{loadedChampion.name}</h1>
             <div className="champion-panel__meta">
               <HouseBadge house={loadedChampion.house} size="medium" />
-              <span>
-                Born of <strong>{REGION_LABEL[loadedChampion.region]}</strong>
-              </span>
+              <RegionBadge region={loadedChampion.region} />
             </div>
           </div>
 
