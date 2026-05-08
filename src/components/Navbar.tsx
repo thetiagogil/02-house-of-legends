@@ -1,10 +1,10 @@
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom";
 
 const navItems = [
   { to: "/champions", label: "Champions" },
   { to: "/items", label: "Items" },
   { to: "/builds", label: "Builds" },
-]
+];
 
 export function Navbar() {
   return (
@@ -20,7 +20,9 @@ export function Navbar() {
             <NavLink
               key={item.to}
               to={item.to}
-              className={({ isActive }) => (isActive ? "nav-link nav-link--active" : "nav-link")}
+              className={({ isActive }) =>
+                isActive ? "nav-link nav-link--active" : "nav-link"
+              }
             >
               {item.label}
             </NavLink>
@@ -28,5 +30,5 @@ export function Navbar() {
         </nav>
       </div>
     </header>
-  )
+  );
 }

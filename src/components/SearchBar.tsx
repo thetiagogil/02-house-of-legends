@@ -1,10 +1,10 @@
-import { Icon } from "./Icon"
+import { Icon } from "./Icon";
 
 type SearchBarProps = {
-  value: string
-  onChange: (value: string) => void
-  placeholder: string
-}
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+};
 
 export function SearchBar({ value, onChange, placeholder }: SearchBarProps) {
   return (
@@ -19,5 +19,5 @@ export function SearchBar({ value, onChange, placeholder }: SearchBarProps) {
         className="search-bar__input"
       />
     </label>
-  )
+  );
 }

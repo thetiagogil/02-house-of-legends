@@ -1,7 +1,7 @@
 type ErrorStateProps = {
-  title: string
-  message: string
-}
+  title: string;
+  message: string;
+};
 
 export function ErrorState({ title, message }: ErrorStateProps) {
   return (
@@ -9,5 +9,5 @@ export function ErrorState({ title, message }: ErrorStateProps) {
       <h2>{title}</h2>
       <p>{message}</p>
     </div>
-  )
+  );
 }

@@ -1,10 +1,19 @@
-type IconName = "search" | "plus" | "minus" | "edit" | "trash" | "chevron-left" | "chevron-right" | "chevron-up" | "chevron-down"
+type IconName =
+  | "search"
+  | "plus"
+  | "minus"
+  | "edit"
+  | "trash"
+  | "chevron-left"
+  | "chevron-right"
+  | "chevron-up"
+  | "chevron-down";
 
 type IconProps = {
-  name: IconName
-  size?: number
-  className?: string
-}
+  name: IconName;
+  size?: number;
+  className?: string;
+};
 
 export function Icon({ name, size = 20, className = "" }: IconProps) {
   return (
@@ -53,5 +62,5 @@ export function Icon({ name, size = 20, className = "" }: IconProps) {
       {name === "chevron-up" && <path d="m18 15-6-6-6 6" />}
       {name === "chevron-down" && <path d="m6 9 6 6 6-6" />}
     </svg>
-  )
+  );
 }

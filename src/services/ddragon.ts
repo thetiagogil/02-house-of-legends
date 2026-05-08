@@ -1,74 +1,74 @@
-import { getHouseForChampion } from "../data/houses"
-import { normalizeRegion } from "../data/regions"
-import { fetchChampionFactions, getChampionFaction } from "./universe"
+import { getHouseForChampion } from "../data/houses";
+import { normalizeRegion } from "../data/regions";
+import { fetchChampionFactions, getChampionFaction } from "./universe";
 import type {
   ChampionDetail,
   ChampionInfo,
   ChampionSummary,
   Item,
   ItemCategory,
-} from "../types/league"
+} from "../types/league";
 
-const VERSION_KEY = "house-of-legends-ddragon-version"
+const VERSION_KEY = "house-of-legends-ddragon-version";
 
-let cachedVersion: string | null = null
-let versionPromise: Promise<string> | null = null
-let championsPromise: Promise<ChampionSummary[]> | null = null
-const championDetailPromises = new Map<string, Promise<ChampionDetail>>()
-let itemsPromise: Promise<Item[]> | null = null
+let cachedVersion: string | null = null;
+let versionPromise: Promise<string> | null = null;
+let championsPromise: Promise<ChampionSummary[]> | null = null;
+const championDetailPromises = new Map<string, Promise<ChampionDetail>>();
+let itemsPromise: Promise<Item[]> | null = null;
 
 type DataDragonChampionSummary = {
-  id: string
-  key: string
-  name: string
-  title: string
-  blurb: string
-  info: ChampionInfo
-  tags: string[]
-  region?: string
-  faction?: string
-}
+  id: string;
+  key: string;
+  name: string;
+  title: string;
+  blurb: string;
+  info: ChampionInfo;
+  tags: string[];
+  region?: string;
+  faction?: string;
+};
 
 type DataDragonChampionDetail = DataDragonChampionSummary & {
-  lore: string
-  skins: { num: number; name: string }[]
-  spells: { id: string; name: string; description: string }[]
-  passive: { name: string; description: string }
-  allytips: string[]
-  enemytips: string[]
-}
+  lore: string;
+  skins: { num: number; name: string }[];
+  spells: { id: string; name: string; description: string }[];
+  passive: { name: string; description: string };
+  allytips: string[];
+  enemytips: string[];
+};
 
 type ChampionListResponse = {
-  data: Record<string, DataDragonChampionSummary>
-}
+  data: Record<string, DataDragonChampionSummary>;
+};
 
 type ChampionDetailResponse = {
-  data: Record<string, DataDragonChampionDetail>
-}
+  data: Record<string, DataDragonChampionDetail>;
+};
 
 type DataDragonItem = {
-  name: string
-  description?: string
-  plaintext?: string
+  name: string;
+  description?: string;
+  plaintext?: string;
   gold?: {
-    total?: number
-    base?: number
-    sell?: number
-    purchasable?: boolean
-  }
-  tags?: string[]
+    total?: number;
+    base?: number;
+    sell?: number;
+    purchasable?: boolean;
+  };
+  tags?: string[];
   image?: {
-    full?: string
-  }
-  maps?: Record<string, boolean>
-  from?: string[]
-  into?: string[]
-  depth?: number
-}
+    full?: string;
+  };
+  maps?: Record<string, boolean>;
+  from?: string[];
+  into?: string[];
+  depth?: number;
+};
 
 type ItemListResponse = {
-  data: Record<string, DataDragonItem>
-}
+  data: Record<string, DataDragonItem>;
+};
 
 export const ITEM_CATEGORIES: ItemCategory[] = [
   "Starter",
@@ -78,51 +78,55 @@ export const ITEM_CATEGORIES: ItemCategory[] = [
   "Legendary",
   "Consumable",
   "Trinket",
-]
+];
 
 async function fetchJson<T>(url: string): Promise<T> {
-  const response = await fetch(url)
+  const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error("The League data service did not respond correctly.")
+    throw new Error("The League data service did not respond correctly.");
   }
 
-  return response.json() as Promise<T>
+  return response.json() as Promise<T>;
 }
 
 export async function getVersion(): Promise<string> {
   if (cachedVersion) {
-    return cachedVersion
+    return cachedVersion;
   }
 
-  const stored = sessionStorage.getItem(VERSION_KEY)
+  const stored = sessionStorage.getItem(VERSION_KEY);
 
   if (stored) {
-    cachedVersion = stored
-    return stored
+    cachedVersion = stored;
+    return stored;
   }
 
   if (!versionPromise) {
-    versionPromise = fetchJson<string[]>("https://ddragon.leagueoflegends.com/api/versions.json")
+    versionPromise = fetchJson<string[]>(
+      "https://ddragon.leagueoflegends.com/api/versions.json",
+    )
       .then((versions) => {
-        const latestVersion = versions[0]
-        cachedVersion = latestVersion
-        sessionStorage.setItem(VERSION_KEY, latestVersion)
-        return latestVersion
+        const latestVersion = versions[0];
+        cachedVersion = latestVersion;
+        sessionStorage.setItem(VERSION_KEY, latestVersion);
+        return latestVersion;
       })
       .finally(() => {
-        versionPromise = null
-      })
+        versionPromise = null;
+      });
   }
 
-  return versionPromise
+  return versionPromise;
 }
 
 function mapChampionSummary(
   champion: DataDragonChampionSummary,
   explicitRegion?: string,
 ): ChampionSummary {
-  const region = normalizeRegion(explicitRegion ?? champion.region ?? champion.faction)
+  const region = normalizeRegion(
+    explicitRegion ?? champion.region ?? champion.faction,
+  );
 
   return {
     id: champion.id,
@@ -139,31 +143,37 @@ function mapChampionSummary(
       region,
     }),
     region,
-  }
+  };
 }
 
 export async function fetchChampions(): Promise<ChampionSummary[]> {
   if (!championsPromise) {
     championsPromise = getVersion().then(async (version) => {
       const [data, factions] = await Promise.all([
-        fetchJson<ChampionListResponse>(`https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`),
+        fetchJson<ChampionListResponse>(
+          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`,
+        ),
         fetchChampionFactions(),
-      ])
+      ]);
 
       return Object.values(data.data)
-        .map((champion) => mapChampionSummary(champion, getChampionFaction(factions, champion)))
-        .sort((a, b) => a.name.localeCompare(b.name))
-    })
+        .map((champion) =>
+          mapChampionSummary(champion, getChampionFaction(factions, champion)),
+        )
+        .sort((a, b) => a.name.localeCompare(b.name));
+    });
   }
 
-  return championsPromise
+  return championsPromise;
 }
 
-export async function fetchChampion(championId: string): Promise<ChampionDetail> {
-  const cached = championDetailPromises.get(championId)
+export async function fetchChampion(
+  championId: string,
+): Promise<ChampionDetail> {
+  const cached = championDetailPromises.get(championId);
 
   if (cached) {
-    return cached
+    return cached;
   }
 
   const promise = getVersion().then(async (version) => {
@@ -172,11 +182,11 @@ export async function fetchChampion(championId: string): Promise<ChampionDetail>
         `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${championId}.json`,
       ),
       fetchChampionFactions(),
-    ])
-    const champion = data.data[championId]
+    ]);
+    const champion = data.data[championId];
 
     if (!champion) {
-      throw new Error("Champion not found.")
+      throw new Error("Champion not found.");
     }
 
     return {
@@ -194,72 +204,75 @@ export async function fetchChampion(championId: string): Promise<ChampionDetail>
       },
       allytips: champion.allytips,
       enemytips: champion.enemytips,
-    }
-  })
+    };
+  });
 
-  championDetailPromises.set(championId, promise)
-  return promise
+  championDetailPromises.set(championId, promise);
+  return promise;
 }
 
 function classifyItem(item: DataDragonItem): ItemCategory {
-  const tags = item.tags ?? []
-  const total = item.gold?.total ?? 0
-  const hasFrom = Array.isArray(item.from) && item.from.length > 0
-  const hasInto = Array.isArray(item.into) && item.into.length > 0
+  const tags = item.tags ?? [];
+  const total = item.gold?.total ?? 0;
+  const hasFrom = Array.isArray(item.from) && item.from.length > 0;
+  const hasInto = Array.isArray(item.into) && item.into.length > 0;
 
   if (tags.includes("Trinket")) {
-    return "Trinket"
+    return "Trinket";
   }
 
   if (tags.includes("Consumable")) {
-    return "Consumable"
+    return "Consumable";
   }
 
   if (tags.includes("Boots")) {
-    return "Boots"
+    return "Boots";
   }
 
   if (!hasFrom && total > 0 && total <= 500) {
-    return "Starter"
+    return "Starter";
   }
 
   if (!hasInto && total >= 2500) {
-    return "Legendary"
+    return "Legendary";
   }
 
   if (hasFrom && total >= 1100) {
-    return "Epic"
+    return "Epic";
   }
 
-  return "Basic"
+  return "Basic";
 }
 
 function isVisibleItem(item: Item): boolean {
   if (Number(item.id) >= 100000) {
-    return false
+    return false;
   }
 
   if (!item.gold.purchasable) {
-    return false
+    return false;
   }
 
   if (item.gold.total <= 0) {
-    return false
+    return false;
   }
 
   if (item.name.includes("<")) {
-    return false
+    return false;
   }
 
-  if (/\b(Quick Charge|Trinket)\b/i.test(item.name) && item.category !== "Trinket") {
-    return false
+  if (
+    /\b(Quick Charge|Trinket)\b/i.test(item.name) &&
+    item.category !== "Trinket"
+  ) {
+    return false;
   }
 
   if (Object.keys(item.maps).length > 0 && item.maps["11"] === false) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 }
 
 export async function fetchItems(): Promise<Item[]> {
@@ -267,7 +280,7 @@ export async function fetchItems(): Promise<Item[]> {
     itemsPromise = getVersion().then(async (version) => {
       const data = await fetchJson<ItemListResponse>(
         `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/item.json`,
-      )
+      );
 
       return Object.entries(data.data)
         .map(([id, rawItem]) => {
@@ -291,16 +304,16 @@ export async function fetchItems(): Promise<Item[]> {
             into: rawItem.into,
             depth: rawItem.depth,
             category: classifyItem(rawItem),
-          }
+          };
 
-          return item
+          return item;
         })
         .filter(isVisibleItem)
-        .sort((a, b) => a.gold.total - b.gold.total)
-    })
+        .sort((a, b) => a.gold.total - b.gold.total);
+    });
   }
 
-  return itemsPromise
+  return itemsPromise;
 }
 
 export const championImages = {
@@ -312,8 +325,8 @@ export const championImages = {
     `https://ddragon.leagueoflegends.com/cdn/img/champion/centered/${championId}_0.jpg`,
   tile: (championId: string) =>
     `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${championId}_0.jpg`,
-}
+};
 
 export function itemImage(version: string, imageName: string): string {
-  return `https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${imageName}`
+  return `https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${imageName}`;
 }

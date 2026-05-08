@@ -3,16 +3,16 @@
   --background-deep: #0c0f14;
   --foreground: oklch(0.97 0.005 250);
   --foreground-soft: rgb(255 255 255 / 0.85);
-  --card: oklch(0.20 0.015 250);
+  --card: oklch(0.2 0.015 250);
   --card-soft: rgb(24 31 43 / 0.56);
   --muted: oklch(0.65 0.02 250);
-  --border: oklch(0.30 0.02 250 / 0.6);
+  --border: oklch(0.3 0.02 250 / 0.6);
   --gold: oklch(0.74 0.12 80);
-  --gold-soft: oklch(0.55 0.10 80 / 0.5);
+  --gold-soft: oklch(0.55 0.1 80 / 0.5);
   --primary-foreground: oklch(0.16 0.02 250);
   --destructive: oklch(0.62 0.21 25);
   --stat-active: oklch(0.82 0.18 220);
-  --stat-inactive: oklch(0.30 0.06 220);
+  --stat-inactive: oklch(0.3 0.06 220);
   --radius: 0.5rem;
   --font-body: "Inter", system-ui, sans-serif;
   --font-display: "Cinzel", Georgia, serif;
@@ -35,8 +35,16 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(ellipse at top, oklch(0.22 0.04 260 / 0.5), transparent 60%),
-    radial-gradient(ellipse at bottom, oklch(0.20 0.05 280 / 0.4), transparent 60%),
+    radial-gradient(
+      ellipse at top,
+      oklch(0.22 0.04 260 / 0.5),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at bottom,
+      oklch(0.2 0.05 280 / 0.4),
+      transparent 60%
+    ),
     var(--background);
   background-attachment: fixed;
   color: var(--foreground);
@@ -217,7 +225,9 @@ option {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  transition: color 180ms ease, text-shadow 180ms ease;
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
 }
 
 .nav-link:hover,
@@ -384,7 +394,12 @@ option {
 .home-tile__shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--background), rgb(20 27 38 / 0.4), transparent);
+  background: linear-gradient(
+    90deg,
+    var(--background),
+    rgb(20 27 38 / 0.4),
+    transparent
+  );
 }
 
 .home-tile__content {
@@ -697,7 +712,12 @@ option {
   flex-direction: column;
   min-width: 0;
   padding: 2.5rem 0.75rem 0.75rem;
-  background: linear-gradient(0deg, var(--background), rgb(8 13 22 / 0.7), transparent);
+  background: linear-gradient(
+    0deg,
+    var(--background),
+    rgb(8 13 22 / 0.7),
+    transparent
+  );
 }
 
 .champion-card__name {
@@ -901,7 +921,7 @@ option {
 
 .item-card__content {
   display: grid;
-  flex:1;
+  flex: 1;
   min-width: 0;
   gap: 0.25rem;
 }
@@ -993,7 +1013,12 @@ option {
 }
 
 .skin-hero__shade {
-  background: linear-gradient(180deg, rgb(8 13 22 / 0.4), rgb(8 13 22 / 0.3), var(--background));
+  background: linear-gradient(
+    180deg,
+    rgb(8 13 22 / 0.4),
+    rgb(8 13 22 / 0.3),
+    var(--background)
+  );
 }
 
 .skin-hero__arrow {
@@ -1353,7 +1378,12 @@ option {
 .saved-build-card__shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgb(8 13 22 / 0.05), rgb(8 13 22 / 0.45), rgb(8 13 22 / 0.95));
+  background: linear-gradient(
+    180deg,
+    rgb(8 13 22 / 0.05),
+    rgb(8 13 22 / 0.45),
+    rgb(8 13 22 / 0.95)
+  );
 }
 
 .saved-build-card__title {
@@ -1547,7 +1577,10 @@ option {
 
 .build-row__stats {
   display: grid;
-  grid-template-columns: minmax(4.5rem, 1fr) minmax(7rem, 1.25fr) minmax(4.5rem, 1fr);
+  grid-template-columns: minmax(4.5rem, 1fr) minmax(7rem, 1.25fr) minmax(
+      4.5rem,
+      1fr
+    );
   gap: 0.75rem;
 }
 
@@ -2201,7 +2234,11 @@ option {
 
 .forge-preview__champion--empty {
   background:
-    radial-gradient(circle at 50% 15%, color-mix(in oklab, var(--gold) 16%, transparent), transparent 32%),
+    radial-gradient(
+      circle at 50% 15%,
+      color-mix(in oklab, var(--gold) 16%, transparent),
+      transparent 32%
+    ),
     rgb(8 13 22 / 0.6);
 }
 
@@ -2215,7 +2252,12 @@ option {
 .forge-preview__shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgb(8 13 22 / 0.05), rgb(8 13 22 / 0.48), rgb(8 13 22 / 0.95));
+  background: linear-gradient(
+    180deg,
+    rgb(8 13 22 / 0.05),
+    rgb(8 13 22 / 0.48),
+    rgb(8 13 22 / 0.95)
+  );
 }
 
 .forge-preview__content {

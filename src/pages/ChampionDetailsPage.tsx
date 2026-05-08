@@ -1,105 +1,131 @@
-import { useEffect, useMemo, useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
-import { ErrorState } from "../components/ErrorState"
-import { HouseBadge } from "../components/HouseBadge"
-import { Icon } from "../components/Icon"
-import { LoadingState } from "../components/LoadingState"
-import { RegionBadge } from "../components/RegionBadge"
-import { StatBar } from "../components/StatBar"
-import { championImages, fetchChampion, fetchChampions } from "../services/ddragon"
-import type { ChampionDetail, ChampionSummary } from "../types/league"
+import { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { ErrorState } from "../components/ErrorState";
+import { HouseBadge } from "../components/HouseBadge";
+import { Icon } from "../components/Icon";
+import { LoadingState } from "../components/LoadingState";
+import { RegionBadge } from "../components/RegionBadge";
+import { StatBar } from "../components/StatBar";
+import {
+  championImages,
+  fetchChampion,
+  fetchChampions,
+} from "../services/ddragon";
+import type { ChampionDetail, ChampionSummary } from "../types/league";
 
 export function ChampionDetailsPage() {
-  const { championId } = useParams()
-  const navigate = useNavigate()
-  const [champion, setChampion] = useState<ChampionDetail | null>(null)
-  const [champions, setChampions] = useState<ChampionSummary[]>([])
-  const [skinIndex, setSkinIndex] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState("")
+  const { championId } = useParams();
+  const navigate = useNavigate();
+  const [champion, setChampion] = useState<ChampionDetail | null>(null);
+  const [champions, setChampions] = useState<ChampionSummary[]>([]);
+  const [skinIndex, setSkinIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    let shouldUpdate = true
+    let shouldUpdate = true;
 
     async function loadChampion() {
       if (!championId) {
-        return
+        return;
       }
 
-      setIsLoading(true)
+      setIsLoading(true);
 
       try {
-        const [loadedChampion, loadedChampions] = await Promise.all([fetchChampion(championId), fetchChampions()])
+        const [loadedChampion, loadedChampions] = await Promise.all([
+          fetchChampion(championId),
+          fetchChampions(),
+        ]);
 
         if (shouldUpdate) {
-          setChampion(loadedChampion)
-          setChampions(loadedChampions)
-          setSkinIndex(0)
-          setError("")
+          setChampion(loadedChampion);
+          setChampions(loadedChampions);
+          setSkinIndex(0);
+          setError("");
         }
       } catch {
         if (shouldUpdate) {
-          setError("Champion not found.")
-          setChampion(null)
+          setError("Champion not found.");
+          setChampion(null);
         }
       } finally {
         if (shouldUpdate) {
-          setIsLoading(false)
+          setIsLoading(false);
         }
       }
     }
 
-    loadChampion()
+    loadChampion();
 
     return () => {
-      shouldUpdate = false
-    }
-  }, [championId])
+      shouldUpdate = false;
+    };
+  }, [championId]);
 
   const { previousChampion, nextChampion } = useMemo(() => {
-    const currentIndex = champions.findIndex((currentChampion) => currentChampion.id === championId)
+    const currentIndex = champions.findIndex(
+      (currentChampion) => currentChampion.id === championId,
+    );
 
     return {
       previousChampion: currentIndex > 0 ? champions[currentIndex - 1] : null,
-      nextChampion: currentIndex >= 0 && currentIndex < champions.length - 1 ? champions[currentIndex + 1] : null,
-    }
-  }, [championId, champions])
+      nextChampion:
+        currentIndex >= 0 && currentIndex < champions.length - 1
+          ? champions[currentIndex + 1]
+          : null,
+    };
+  }, [championId, champions]);
 
   if (isLoading) {
-    return <LoadingState label="Summoning champion..." />
+    return <LoadingState label="Summoning champion..." />;
   }
 
   if (error || !champion) {
     return (
       <div className="page-container">
-        <ErrorState title="This realm does not exist." message={error || "Champion not found."} />
+        <ErrorState
+          title="This realm does not exist."
+          message={error || "Champion not found."}
+        />
         <div className="center-actions">
           <Link to="/champions" className="text-link">
             Back to champions
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
-  const loadedChampion = champion
-  const baseSkins = loadedChampion.skins.filter((skin) => !skin.name.includes("("))
-  const visibleSkins = baseSkins.length > 0 ? baseSkins : loadedChampion.skins
-  const currentSkin = visibleSkins[skinIndex]
-  const splashImage = championImages.splash(loadedChampion.id, currentSkin?.num ?? 0)
+  const loadedChampion = champion;
+  const baseSkins = loadedChampion.skins.filter(
+    (skin) => !skin.name.includes("("),
+  );
+  const visibleSkins = baseSkins.length > 0 ? baseSkins : loadedChampion.skins;
+  const currentSkin = visibleSkins[skinIndex];
+  const splashImage = championImages.splash(
+    loadedChampion.id,
+    currentSkin?.num ?? 0,
+  );
 
   function showPreviousSkin() {
-    setSkinIndex((currentIndex) => Math.max(0, currentIndex - 1))
+    setSkinIndex((currentIndex) => Math.max(0, currentIndex - 1));
   }
 
   function showNextSkin() {
-    setSkinIndex((currentIndex) => Math.min(visibleSkins.length - 1, currentIndex + 1))
+    setSkinIndex((currentIndex) =>
+      Math.min(visibleSkins.length - 1, currentIndex + 1),
+    );
   }
 
   return (
     <div className="champion-detail">
       <section className="skin-hero">
-        <img src={splashImage} alt="" className="skin-hero__visual skin-hero__visual--blur" />
+        <img
+          src={splashImage}
+          alt=""
+          className="skin-hero__visual skin-hero__visual--blur"
+        />
         <img src={splashImage} alt="" className="skin-hero__visual" />
         <div className="skin-hero__shade" />
 
@@ -123,7 +149,9 @@ export function ChampionDetailsPage() {
         </button>
 
         <div className="skin-hero__controls">
-          <p>{currentSkin?.name === "default" ? "Classic" : currentSkin?.name}</p>
+          <p>
+            {currentSkin?.name === "default" ? "Classic" : currentSkin?.name}
+          </p>
           <div className="skin-dots" aria-label="Champion skins">
             {visibleSkins.map((skin, index) => (
               <button
@@ -131,7 +159,9 @@ export function ChampionDetailsPage() {
                 type="button"
                 onClick={() => setSkinIndex(index)}
                 aria-label={`Show ${skin.name === "default" ? "Classic" : skin.name}`}
-                className={skinIndex === index ? "skin-dot skin-dot--active" : "skin-dot"}
+                className={
+                  skinIndex === index ? "skin-dot skin-dot--active" : "skin-dot"
+                }
               />
             ))}
           </div>
@@ -163,7 +193,10 @@ export function ChampionDetailsPage() {
                 <StatBar label="Attack" value={loadedChampion.info.attack} />
                 <StatBar label="Defense" value={loadedChampion.info.defense} />
                 <StatBar label="Magic" value={loadedChampion.info.magic} />
-                <StatBar label="Difficulty" value={loadedChampion.info.difficulty} />
+                <StatBar
+                  label="Difficulty"
+                  value={loadedChampion.info.difficulty}
+                />
               </div>
             </div>
 
@@ -183,7 +216,9 @@ export function ChampionDetailsPage() {
           <button
             type="button"
             disabled={!previousChampion}
-            onClick={() => previousChampion && navigate(`/champions/${previousChampion.id}`)}
+            onClick={() =>
+              previousChampion && navigate(`/champions/${previousChampion.id}`)
+            }
             className="outline-action"
           >
             <Icon name="chevron-left" size={16} />
@@ -197,7 +232,9 @@ export function ChampionDetailsPage() {
           <button
             type="button"
             disabled={!nextChampion}
-            onClick={() => nextChampion && navigate(`/champions/${nextChampion.id}`)}
+            onClick={() =>
+              nextChampion && navigate(`/champions/${nextChampion.id}`)
+            }
             className="outline-action"
           >
             {nextChampion?.name ?? "End"}
@@ -206,5 +243,5 @@ export function ChampionDetailsPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

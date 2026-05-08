@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
-import { championImages } from "../services/ddragon"
+import { Link } from "react-router-dom";
+import { championImages } from "../services/ddragon";
 
 const homeTiles = [
   {
@@ -20,7 +20,7 @@ const homeTiles = [
     subtitle: "Craft and master your strategies",
     championId: "Heimerdinger",
   },
-]
+];
 
 export function HomePage() {
   return (
@@ -31,8 +31,8 @@ export function HomePage() {
           House of <span>Legends</span>
         </h1>
         <p className="home-hero__copy">
-          Where the magic of the houses meets the fury of the Rift. Browse champions, study artifacts, and forge
-          legendary builds.
+          Where the magic of the houses meets the fury of the Rift. Browse
+          champions, study artifacts, and forge legendary builds.
         </p>
       </section>
 
@@ -41,15 +41,21 @@ export function HomePage() {
           <Link key={tile.to} to={tile.to} className="home-tile">
             <span
               className="home-tile__image"
-              style={{ backgroundImage: `url(${championImages.centered(tile.championId)})` }}
+              style={{
+                backgroundImage: `url(${championImages.centered(tile.championId)})`,
+              }}
             />
             <span
               className="home-tile__image home-tile__image--hover"
-              style={{ backgroundImage: `url(${championImages.centered(tile.championId)})` }}
+              style={{
+                backgroundImage: `url(${championImages.centered(tile.championId)})`,
+              }}
             />
             <span className="home-tile__shade" />
             <span className="home-tile__content">
-              <span className="home-tile__chapter">Chapter {String(index + 1).padStart(2, "0")}</span>
+              <span className="home-tile__chapter">
+                Chapter {String(index + 1).padStart(2, "0")}
+              </span>
               <span className="home-tile__title">{tile.title}</span>
               <span className="home-tile__subtitle">{tile.subtitle}</span>
             </span>
@@ -57,5 +63,5 @@ export function HomePage() {
         ))}
       </div>
     </div>
-  )
+  );
 }
