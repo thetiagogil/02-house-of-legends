@@ -1,6 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#0c0f14"/>
-  <circle cx="32" cy="32" r="23" fill="none" stroke="#d6a847" stroke-width="3"/>
-  <path d="M20 18v28M44 18v28M22 32h20" fill="none" stroke="#f3d27a" stroke-width="5" stroke-linecap="round"/>
-  <path d="M32 10l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#f3d27a"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="House of Legends favicon concept">
+  <circle cx="32" cy="32" r="30" fill="#1a1d23"/>
+  <g id="mark" transform="translate(0 0)">
+    <g id="h-letter" transform="translate(0 -2)">
+      <path d="M23 24v24M41 24v24M25 36h14" fill="none" stroke="#f3d27a" stroke-width="5.5" stroke-linecap="round"/>
+    </g>
+    <g id="star" transform="translate(0 -6)">
+      <path d="M32 13l2.3 5.6 6 2.1-6 2.1L32 29l-2.3-6.2-6-2.1 6-2.1z" fill="#f3d27a"/>
+    </g>
+  </g>
 </svg>
