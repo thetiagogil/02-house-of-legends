@@ -184,24 +184,12 @@ option {
   gap: 0.5rem;
 }
 
-.brand-link:hover .brand-mark {
-  box-shadow: var(--shadow-gold);
-}
-
 .brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 2.25rem;
   height: 2.25rem;
-  border: 1px solid color-mix(in oklab, var(--gold) 60%, transparent);
-  border-radius: 999px;
-  color: var(--gold);
-  font-family: var(--font-magic);
-  font-size: 1.125rem;
-  transition:
-    box-shadow 180ms ease,
-    border-color 180ms ease;
+  object-fit: contain;
+  transition: filter 180ms ease;
 }
 
 .brand-name {

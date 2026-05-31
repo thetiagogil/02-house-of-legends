@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import houseOfLegendsBadge from "../../../assets/house-of-legends-badge.svg";
 
 const navItems = [
   { to: "/champions", label: "Champions" },
@@ -10,8 +11,13 @@ export function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar__inner">
-        <Link to="/" className="brand-link">
-          <span className="brand-mark">H</span>
+        <Link to="/" className="brand-link" aria-label="House of Legends home">
+          <img
+            src={houseOfLegendsBadge}
+            alt=""
+            aria-hidden="true"
+            className="brand-mark"
+          />
           <span className="brand-name">House of Legends</span>
         </Link>
 
