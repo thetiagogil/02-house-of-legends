@@ -14,18 +14,33 @@ import {
   isBuildFormComplete,
   toBuildItems,
 } from "../lib/build-form-options";
-import { createBuild } from "../storage/build-storage";
+import { createBuild, updateBuild } from "../storage/build-storage";
+import type { Build } from "../types";
 import { useBuildFormData } from "./useBuildFormData";
 
 type UseBuildFormInput = {
-  onBuildCreated: () => void;
+  initialBuild?: Build;
+  onBuildSaved: () => void;
 };
 
-export function useBuildForm({ onBuildCreated }: UseBuildFormInput) {
+function getInitialSlots(initialBuild: Build | undefined): string[] {
+  if (!initialBuild) {
+    return [...EMPTY_BUILD_SLOTS];
+  }
+
+  return EMPTY_BUILD_SLOTS.map(
+    (emptySlot, index) => initialBuild.items[index]?.id ?? emptySlot,
+  );
+}
+
+export function useBuildForm({
+  initialBuild,
+  onBuildSaved,
+}: UseBuildFormInput) {
   const { champions, error, isLoading, items, version } = useBuildFormData();
-  const [championId, setChampionId] = useState("");
-  const [title, setTitle] = useState("");
-  const [slots, setSlots] = useState(() => [...EMPTY_BUILD_SLOTS]);
+  const [championId, setChampionId] = useState(initialBuild?.champion.id ?? "");
+  const [title, setTitle] = useState(initialBuild?.title ?? "");
+  const [slots, setSlots] = useState(() => getInitialSlots(initialBuild));
   const [pickerTarget, setPickerTarget] = useState<PickerTarget>({
     type: "champion",
   });
@@ -90,7 +105,7 @@ export function useBuildForm({ onBuildCreated }: UseBuildFormInput) {
       return;
     }
 
-    createBuild({
+    const buildInput = {
       title: title.trim(),
       champion: {
         id: selectedChampion.id,
@@ -98,9 +113,15 @@ export function useBuildForm({ onBuildCreated }: UseBuildFormInput) {
         key: selectedChampion.key,
       },
       items: selectedBuildItems,
-    });
+    };
 
-    onBuildCreated();
+    if (initialBuild) {
+      updateBuild(initialBuild.id, buildInput);
+    } else {
+      createBuild(buildInput);
+    }
+
+    onBuildSaved();
   }
 
   return {

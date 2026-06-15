@@ -503,6 +503,10 @@ option {
   color: var(--primary-foreground);
 }
 
+.filter-button--active:hover {
+  color: var(--primary-foreground);
+}
+
 .filter-button__count {
   margin-left: 0.5rem;
   opacity: 0.6;
@@ -527,8 +531,23 @@ option {
   color: var(--gold);
 }
 
+.role-filter__list,
+.region-filter__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.role-filter__list {
+  width: min(100%, 48rem);
+}
+
 .region-filter__list {
   margin-top: 0.75rem;
+}
+
+.role-filter__list .filter-button,
+.region-filter__list .filter-button {
+  width: 100%;
 }
 
 .house-grid {
@@ -2509,6 +2528,11 @@ option {
     font-size: 3.75rem;
   }
 
+  .role-filter__list,
+  .region-filter__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .home-hero {
     margin-bottom: 6rem;
   }
@@ -2630,6 +2654,11 @@ option {
 
   .build-forge--picker {
     grid-template-columns: minmax(0, 1fr) minmax(24rem, 32rem);
+  }
+
+  .role-filter__list,
+  .region-filter__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .items-browser {

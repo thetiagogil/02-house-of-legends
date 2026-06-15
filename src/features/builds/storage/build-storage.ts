@@ -11,6 +11,10 @@ export type CreateBuildInput = {
   items: BuildItem[];
 };
 
+export type UpdateBuildInput = Partial<
+  Pick<Build, "champion" | "items" | "loss" | "title" | "win">
+>;
+
 function createId(): string {
   if (crypto.randomUUID) {
     return crypto.randomUUID();
@@ -33,6 +37,10 @@ export function readBuilds(): Build[] {
   }
 }
 
+export function readBuild(buildId: string): Build | null {
+  return readBuilds().find((build) => build.id === buildId) ?? null;
+}
+
 function writeBuilds(builds: Build[]): void {
   writeStorageValue(STORAGE_KEY, JSON.stringify(builds));
   window.dispatchEvent(new Event(BUILD_STORAGE_EVENT));
@@ -51,10 +59,7 @@ export function createBuild(input: CreateBuildInput): Build {
   return build;
 }
 
-export function updateBuild(
-  buildId: string,
-  patch: Partial<Pick<Build, "win" | "loss" | "title">>,
-): void {
+export function updateBuild(buildId: string, patch: UpdateBuildInput): void {
   const updatedBuilds = readBuilds().map((build) =>
     build.id === buildId ? { ...build, ...patch } : build,
   );

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Icon } from "../../../shared/components/ui/Icon";
 import { itemImage } from "../../items/lib/item-images";
 import { useBuildRowActions } from "../hooks/useBuildRowActions";
@@ -66,6 +67,14 @@ export function BuildRow({ build, version, onChange }: BuildRowProps) {
         </div>
 
         <div className="build-row__actions">
+          <Link
+            to={`/builds/${build.id}/edit`}
+            className="build-row__icon-action"
+            aria-label={`Edit ${build.title}`}
+            title="Edit build"
+          >
+            <Icon name="edit" size={16} />
+          </Link>
           <button
             type="button"
             onClick={toggleRecordControls}
@@ -75,11 +84,17 @@ export function BuildRow({ build, version, onChange }: BuildRowProps) {
                 : "build-row__icon-action"
             }
             aria-label={
-              showRecordControls ? "Hide record controls" : "Edit record"
+              showRecordControls
+                ? "Hide win/loss controls"
+                : "Edit wins and losses"
             }
-            title={showRecordControls ? "Hide record controls" : "Edit record"}
+            title={
+              showRecordControls
+                ? "Hide win/loss controls"
+                : "Edit wins and losses"
+            }
           >
-            <Icon name="edit" size={16} />
+            <Icon name="chart" size={16} />
           </button>
           <button
             type="button"
@@ -99,7 +114,10 @@ export function BuildRow({ build, version, onChange }: BuildRowProps) {
       </div>
 
       {showRecordControls && (
-        <div className="build-row__record-edit" aria-label="Edit record">
+        <div
+          className="build-row__record-edit"
+          aria-label="Edit wins and losses"
+        >
           <CounterStat
             label="Wins"
             value={build.win}

@@ -19,7 +19,7 @@ export function useItemsBrowser() {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] =
-    useState<ActiveItemCategory>("Legendary");
+    useState<ActiveItemCategory>("All");
   const [sort, setSort] = useState<ItemSort>("Price High");
 
   useEffect(() => {

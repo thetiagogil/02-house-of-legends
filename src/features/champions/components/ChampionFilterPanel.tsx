@@ -40,7 +40,7 @@ export function ChampionFilterPanel({
         placeholder="Search for a champion..."
       />
 
-      <div className="filter-row">
+      <div className="filter-row role-filter__list">
         <FilterButton
           active={!role && !house && !region}
           onClick={resetFilters}

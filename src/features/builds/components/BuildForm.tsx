@@ -9,9 +9,14 @@ import { BuildPickerPanel } from "./BuildPickerPanel";
 type BuildFormProps = {
   form: BuildFormState;
   cancelPath: string;
+  submitLabel?: string;
 };
 
-export function BuildForm({ form, cancelPath }: BuildFormProps) {
+export function BuildForm({
+  form,
+  cancelPath,
+  submitLabel = "Create Build",
+}: BuildFormProps) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     form.submitBuild();
@@ -53,7 +58,7 @@ export function BuildForm({ form, cancelPath }: BuildFormProps) {
           disabled={!form.isValid}
           className="primary-action"
         >
-          Create Build
+          {submitLabel}
         </button>
       </div>
     </form>
