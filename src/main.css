@@ -76,6 +76,15 @@ a {
   text-decoration: none;
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -109,8 +118,8 @@ input {
     box-shadow 180ms ease;
 }
 
-select:focus,
-input:focus {
+select:focus-visible,
+input:focus-visible {
   border-color: var(--gold);
   box-shadow: var(--shadow-gold);
 }
@@ -349,7 +358,8 @@ option {
     box-shadow 220ms ease;
 }
 
-.home-tile:hover {
+.home-tile:hover,
+.home-tile:focus-visible {
   border-color: var(--gold);
   box-shadow: var(--shadow-gold);
 }
@@ -371,11 +381,13 @@ option {
   filter: saturate(1.1) brightness(0.65);
 }
 
-.home-tile:hover .home-tile__image {
+.home-tile:hover .home-tile__image,
+.home-tile:focus-visible .home-tile__image {
   transform: scale(1);
 }
 
-.home-tile:hover .home-tile__image--hover {
+.home-tile:hover .home-tile__image--hover,
+.home-tile:focus-visible .home-tile__image--hover {
   opacity: 1;
 }
 
@@ -417,7 +429,8 @@ option {
   transition: color 180ms ease;
 }
 
-.home-tile:hover .home-tile__title {
+.home-tile:hover .home-tile__title,
+.home-tile:focus-visible .home-tile__title {
   color: var(--gold);
 }
 
@@ -469,6 +482,34 @@ option {
   color: var(--muted);
 }
 
+.search-bar--clearable .search-bar__input {
+  padding-right: 2.75rem;
+}
+
+.search-bar__clear {
+  position: absolute;
+  top: 50%;
+  right: 0.625rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: color-mix(in oklab, var(--muted) 85%, transparent);
+  transform: translateY(-50%);
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.search-bar__clear:hover {
+  background: color-mix(in oklab, var(--gold) 12%, transparent);
+  color: var(--gold);
+}
+
 .filter-row {
   display: flex;
   flex-wrap: wrap;
@@ -494,6 +535,7 @@ option {
 
 .filter-button:hover {
   border-color: color-mix(in oklab, var(--gold) 70%, transparent);
+  background: color-mix(in oklab, var(--gold) 8%, transparent);
   color: var(--gold);
 }
 
@@ -504,12 +546,45 @@ option {
 }
 
 .filter-button--active:hover {
+  background: var(--gold);
   color: var(--primary-foreground);
 }
 
 .filter-button__count {
   margin-left: 0.5rem;
   opacity: 0.6;
+}
+
+.active-filter-summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: min(100%, 48rem);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.active-filter-summary span {
+  color: color-mix(in oklab, var(--gold) 82%, var(--muted));
+}
+
+.active-filter-summary button {
+  border: 0;
+  background: transparent;
+  color: var(--gold);
+  padding: 0;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.active-filter-summary button:hover {
+  color: var(--foreground);
 }
 
 .region-filter {
@@ -685,6 +760,11 @@ option {
   border-color: var(--gold);
   box-shadow: var(--shadow-gold);
   transform: translateY(-0.25rem);
+}
+
+.champion-card:focus-within {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-gold);
 }
 
 .champion-card__image-wrap {
@@ -1233,17 +1313,66 @@ option {
   color: var(--muted);
 }
 
-.champion-lore blockquote {
+.champion-lore p {
   margin: 0;
   color: var(--foreground-soft);
   font-family: var(--font-display);
   font-size: 1rem;
-  font-style: italic;
   line-height: 1.7;
 }
 
 .champion-lore strong {
   color: var(--foreground);
+}
+
+.champion-abilities {
+  margin-top: 2rem;
+}
+
+.champion-ability-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.champion-ability-card,
+.champion-tip-panel {
+  border: 1px solid color-mix(in oklab, var(--gold) 16%, transparent);
+  border-radius: 0.375rem;
+  background: rgb(8 13 22 / 0.35);
+  padding: 1rem;
+}
+
+.champion-ability-card span {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.champion-ability-card h3 {
+  margin-top: 0.25rem;
+  color: var(--foreground);
+  font-size: 1rem;
+}
+
+.champion-ability-card p,
+.champion-tip-panel li {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.champion-tips-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.champion-tip-panel ul {
+  margin: 0;
+  padding-left: 1.25rem;
 }
 
 .champion-navigation {
@@ -1320,6 +1449,18 @@ option {
 
 .primary-action:disabled {
   opacity: 0.4;
+}
+
+.form-error {
+  width: min(100%, 36rem);
+  margin: 1rem auto 0;
+  border: 1px solid color-mix(in oklab, var(--destructive) 50%, transparent);
+  border-radius: 0.375rem;
+  background: color-mix(in oklab, var(--destructive) 12%, transparent);
+  color: color-mix(in oklab, var(--destructive) 70%, var(--foreground));
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  text-align: center;
 }
 
 .round-action {
@@ -2587,6 +2728,11 @@ option {
     padding: 2.5rem;
   }
 
+  .champion-ability-list,
+  .champion-tips-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .champion-panel__header h1 {
     font-size: 4.5rem;
   }
@@ -2659,6 +2805,10 @@ option {
   .role-filter__list,
   .region-filter__list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .champion-ability-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .items-browser {
@@ -2833,12 +2983,29 @@ option {
   }
 
   .item-category-panel {
-    display: flex;
-    overflow-x: auto;
-    padding-bottom: 0.25rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
   }
 
   .item-category-card {
-    min-width: 14rem;
+    min-width: 0;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .item-category-card strong {
+    font-size: 0.75rem;
+    line-height: 1.25;
+    white-space: normal;
+  }
+
+  .item-category-card small {
+    display: none;
+  }
+
+  .item-category-card em {
+    font-size: 0.75rem;
   }
 }

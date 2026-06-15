@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { BuildForm } from "../../features/builds/components/BuildForm";
 import { useBuildForm } from "../../features/builds/hooks/useBuildForm";
 import { EMPTY_BUILD_SLOTS } from "../../features/builds/lib/build-form-options";
+import { EmptyState } from "../../shared/components/ui/EmptyState";
 import { LoadingState } from "../../shared/components/ui/LoadingState";
 
 export function NewBuildPage() {
@@ -17,10 +18,7 @@ export function NewBuildPage() {
   if (form.error) {
     return (
       <div className="page-container page-container--form">
-        <div className="empty-state">
-          <h2>The forge is unavailable.</h2>
-          <p>{form.error}</p>
-        </div>
+        <EmptyState title="The forge is unavailable." message={form.error} />
       </div>
     );
   }

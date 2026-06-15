@@ -4,6 +4,7 @@ type IconName =
   | "minus"
   | "chart"
   | "edit"
+  | "x"
   | "trash"
   | "chevron-left"
   | "chevron-right"
@@ -43,6 +44,12 @@ export function Icon({ name, size = 20, className = "" }: IconProps) {
         </>
       )}
       {name === "minus" && <path d="M5 12h14" />}
+      {name === "x" && (
+        <>
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </>
+      )}
       {name === "chart" && (
         <>
           <path d="M4 19V5" />

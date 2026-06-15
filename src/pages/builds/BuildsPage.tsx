@@ -1,5 +1,6 @@
 import { BuildGroupList } from "../../features/builds/components/BuildGroupList";
 import { useBuildBrowser } from "../../features/builds/hooks/useBuildBrowser";
+import { EmptyState } from "../../shared/components/ui/EmptyState";
 import { BuildsEmptyState } from "./_components/BuildsEmptyState";
 import { BuildSortControls } from "./_components/BuildSortControls";
 import { BuildsToolbar } from "./_components/BuildsToolbar";
@@ -35,10 +36,10 @@ export function BuildsPage() {
       {builds.length === 0 && <BuildsEmptyState />}
 
       {builds.length > 0 && visibleBuilds.length === 0 && (
-        <div className="empty-state">
-          <h2>No builds match your search.</h2>
-          <p>Try another champion or title.</p>
-        </div>
+        <EmptyState
+          title="No builds match your search."
+          message="Try another champion or title."
+        />
       )}
 
       {visibleBuilds.length > 0 && (

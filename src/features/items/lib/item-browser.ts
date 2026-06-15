@@ -9,26 +9,42 @@ export const ITEM_SORT_OPTIONS: ItemSort[] = [
   "Name",
 ];
 
-export const itemCategoryLabels: Record<ItemCategory, string> = {
-  Starter: "Starter Relics",
-  Boots: "Enchanted Boots",
-  Basic: "Basic Components",
-  Epic: "Epic Artifacts",
-  Legendary: "Legendary Artifacts",
-  Consumable: "Consumables",
-  Trinket: "Trinkets",
-  Other: "Other",
-};
-
-export const itemCategoryHints: Record<ItemCategory, string> = {
-  Starter: "Opening purchases for early pressure",
-  Boots: "Movement and utility footwear",
-  Basic: "Small components and stat pieces",
-  Epic: "Mid-tier powers before final items",
-  Legendary: "Full-build power spikes",
-  Consumable: "Temporary effects and sustain",
-  Trinket: "Vision and map utility",
-  Other: "Miscellaneous relics",
+export const itemCategoryConfig: Record<
+  ItemCategory,
+  { label: string; hint: string }
+> = {
+  Starter: {
+    label: "Starter Relics",
+    hint: "Opening purchases for early pressure",
+  },
+  Boots: {
+    label: "Enchanted Boots",
+    hint: "Movement and utility footwear",
+  },
+  Basic: {
+    label: "Basic Components",
+    hint: "Small components and stat pieces",
+  },
+  Epic: {
+    label: "Epic Artifacts",
+    hint: "Mid-tier powers before final items",
+  },
+  Legendary: {
+    label: "Legendary Artifacts",
+    hint: "Full-build power spikes",
+  },
+  Consumable: {
+    label: "Consumables",
+    hint: "Temporary effects and sustain",
+  },
+  Trinket: {
+    label: "Trinkets",
+    hint: "Vision and map utility",
+  },
+  Other: {
+    label: "Other",
+    hint: "Miscellaneous relics",
+  },
 };
 
 export function getItemCounts(
@@ -45,13 +61,15 @@ export function getItemCounts(
 }
 
 export function getItemCategoryLabel(category: ActiveItemCategory): string {
-  return category === "All" ? "All Artifacts" : itemCategoryLabels[category];
+  return category === "All"
+    ? "All Artifacts"
+    : itemCategoryConfig[category].label;
 }
 
 export function getItemCategoryHint(category: ActiveItemCategory): string {
   return category === "All"
     ? "Every purchasable item in the archive"
-    : itemCategoryHints[category];
+    : itemCategoryConfig[category].hint;
 }
 
 export function filterItems(

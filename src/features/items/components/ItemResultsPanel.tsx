@@ -1,4 +1,5 @@
 import { FilterButton } from "../../../shared/components/ui/FilterButton";
+import { EmptyState } from "../../../shared/components/ui/EmptyState";
 import { LoadingState } from "../../../shared/components/ui/LoadingState";
 import { SearchBar } from "../../../shared/components/ui/SearchBar";
 import { ITEM_SORT_OPTIONS, type ItemSort } from "../lib/item-browser";
@@ -46,6 +47,8 @@ export function ItemResultsPanel({
         <SearchBar
           value={search}
           onChange={onSearchChange}
+          onClear={() => onSearchChange("")}
+          label="Search items"
           placeholder="Search item or tag..."
         />
         <div className="filter-row item-sort-row">
@@ -64,17 +67,14 @@ export function ItemResultsPanel({
       {isLoading && <LoadingState label="Opening the artifact archive..." />}
 
       {error && !isLoading && (
-        <div className="empty-state">
-          <h2>Archive unavailable</h2>
-          <p>{error}</p>
-        </div>
+        <EmptyState title="Archive unavailable" message={error} />
       )}
 
       {!isLoading && !error && visibleItems.length === 0 && (
-        <div className="empty-state">
-          <h2>No artifacts match your filters.</h2>
-          <p>Try another category, search, or sort order.</p>
-        </div>
+        <EmptyState
+          title="No artifacts match your filters."
+          message="Try another category, search, or sort order."
+        />
       )}
 
       {!isLoading && !error && visibleItems.length > 0 && (

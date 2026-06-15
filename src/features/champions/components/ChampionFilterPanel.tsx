@@ -32,17 +32,26 @@ export function ChampionFilterPanel({
   setRole,
   setSearch,
 }: ChampionFilterPanelProps) {
+  const activeFilters = [
+    search ? `Search: ${search}` : "",
+    role ? `Role: ${role}` : "",
+    house ? `House: ${house}` : "",
+    region ? `Region: ${getRegionLabel(region)}` : "",
+  ].filter(Boolean);
+
   return (
     <section className="filters-panel" aria-label="Champion filters">
       <SearchBar
         value={search}
         onChange={setSearch}
+        onClear={() => setSearch("")}
+        label="Search champions"
         placeholder="Search for a champion..."
       />
 
       <div className="filter-row role-filter__list">
         <FilterButton
-          active={!role && !house && !region}
+          active={!search && !role && !house && !region}
           onClick={resetFilters}
         >
           All
@@ -57,6 +66,15 @@ export function ChampionFilterPanel({
           </FilterButton>
         ))}
       </div>
+
+      {activeFilters.length > 0 && (
+        <div className="active-filter-summary" aria-live="polite">
+          <span>{activeFilters.join(" / ")}</span>
+          <button type="button" onClick={resetFilters}>
+            Clear all
+          </button>
+        </div>
+      )}
 
       <details className="region-filter">
         <summary>
@@ -88,6 +106,7 @@ export function ChampionFilterPanel({
               key={currentHouse}
               type="button"
               onClick={() => setHouse(isActive ? null : currentHouse)}
+              aria-pressed={isActive}
               className={
                 isActive
                   ? `house-card house-card--active ${houseStyle.className}`

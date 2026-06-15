@@ -50,6 +50,7 @@ export function useBuildForm({
   const [artifactCategory, setArtifactCategory] = useState<
     ItemCategory | "All"
   >("All");
+  const [saveError, setSaveError] = useState("");
 
   const { boots, artifacts } = getBuildItemOptions(items);
   const championRoles = getChampionRoles(champions);
@@ -71,6 +72,7 @@ export function useBuildForm({
 
   function selectChampion(champion: ChampionSummary) {
     setChampionId(champion.id);
+    setChampionSearch("");
     setPickerTarget({ type: "item", slotIndex: 0 });
   }
 
@@ -86,6 +88,7 @@ export function useBuildForm({
     }
 
     setSlot(pickerTarget.slotIndex, item.id);
+    setItemSearch("");
 
     const nextEmptySlot = getNextEmptySlot(slots, pickerTarget.slotIndex);
 
@@ -95,6 +98,8 @@ export function useBuildForm({
   }
 
   function submitBuild() {
+    setSaveError("");
+
     if (!isValid || !selectedChampion) {
       return;
     }
@@ -115,10 +120,15 @@ export function useBuildForm({
       items: selectedBuildItems,
     };
 
-    if (initialBuild) {
-      updateBuild(initialBuild.id, buildInput);
-    } else {
-      createBuild(buildInput);
+    const didSave = initialBuild
+      ? updateBuild(initialBuild.id, buildInput)
+      : Boolean(createBuild(buildInput));
+
+    if (!didSave) {
+      setSaveError(
+        "Build could not be saved. Check browser storage and try again.",
+      );
+      return;
     }
 
     onBuildSaved();
@@ -139,6 +149,7 @@ export function useBuildForm({
     isValid,
     itemSearch,
     pickerTarget,
+    saveError,
     selectChampion,
     selectItem,
     selectedChampion,

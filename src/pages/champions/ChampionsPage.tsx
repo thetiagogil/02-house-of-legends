@@ -1,6 +1,7 @@
 import { ChampionFilterPanel } from "../../features/champions/components/ChampionFilterPanel";
 import { ChampionGrid } from "../../features/champions/components/ChampionGrid";
 import { useChampionBrowser } from "../../features/champions/hooks/useChampionBrowser";
+import { EmptyState } from "../../shared/components/ui/EmptyState";
 import { LoadingState } from "../../shared/components/ui/LoadingState";
 import { ChampionsPageHeader } from "./_components/ChampionsPageHeader";
 
@@ -31,19 +32,16 @@ export function ChampionsPage() {
       {browser.isLoading && <LoadingState />}
 
       {browser.error && !browser.isLoading && (
-        <div className="empty-state">
-          <h2>Data portal closed</h2>
-          <p>{browser.error}</p>
-        </div>
+        <EmptyState title="Data portal closed" message={browser.error} />
       )}
 
       {!browser.isLoading &&
         !browser.error &&
         browser.filteredChampions.length === 0 && (
-          <div className="empty-state">
-            <h2>No legends match your search.</h2>
-            <p>Try another name, role, house, or region.</p>
-          </div>
+          <EmptyState
+            title="No legends match your search."
+            message="Try another name, role, house, or region."
+          />
         )}
 
       {!browser.isLoading &&

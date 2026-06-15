@@ -13,6 +13,8 @@ export function BuildsToolbar({ search, onSearchChange }: BuildsToolbarProps) {
       <SearchBar
         value={search}
         onChange={onSearchChange}
+        onClear={() => onSearchChange("")}
+        label="Search builds"
         placeholder="Search champion or build..."
       />
       <Link to="/builds/new" aria-label="Create build" className="round-action">

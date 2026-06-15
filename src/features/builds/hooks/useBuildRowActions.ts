@@ -15,13 +15,15 @@ export function useBuildRowActions({
   const [showRecordControls, setShowRecordControls] = useState(false);
 
   function changeWins(delta: number) {
-    updateBuild(build.id, { win: Math.max(0, build.win + delta) });
-    onChange();
+    if (updateBuild(build.id, { win: Math.max(0, build.win + delta) })) {
+      onChange();
+    }
   }
 
   function changeLosses(delta: number) {
-    updateBuild(build.id, { loss: Math.max(0, build.loss + delta) });
-    onChange();
+    if (updateBuild(build.id, { loss: Math.max(0, build.loss + delta) })) {
+      onChange();
+    }
   }
 
   function handleDelete() {
@@ -30,8 +32,9 @@ export function useBuildRowActions({
       return;
     }
 
-    deleteBuild(build.id);
-    onChange();
+    if (deleteBuild(build.id)) {
+      onChange();
+    }
   }
 
   function hideDeleteConfirmation() {

@@ -48,6 +48,12 @@ export function BuildForm({
         <BuildPickerPanel form={form} />
       </section>
 
+      {form.saveError && (
+        <p className="form-error" role="alert">
+          {form.saveError}
+        </p>
+      )}
+
       <div className="form-actions form-actions--build-create">
         <Link to={cancelPath} className="muted-action">
           <Icon name="chevron-left" size={16} />

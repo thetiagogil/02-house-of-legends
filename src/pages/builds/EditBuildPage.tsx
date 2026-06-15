@@ -3,6 +3,7 @@ import { BuildForm } from "../../features/builds/components/BuildForm";
 import { useBuildForm } from "../../features/builds/hooks/useBuildForm";
 import { EMPTY_BUILD_SLOTS } from "../../features/builds/lib/build-form-options";
 import { readBuild } from "../../features/builds/storage/build-storage";
+import { EmptyState } from "../../shared/components/ui/EmptyState";
 import { Icon } from "../../shared/components/ui/Icon";
 import { LoadingState } from "../../shared/components/ui/LoadingState";
 
@@ -18,14 +19,16 @@ export function EditBuildPage() {
   if (!build) {
     return (
       <div className="page-container page-container--form">
-        <div className="empty-state">
-          <h2>Build not found.</h2>
-          <p>This build may have been deleted or moved.</p>
-          <Link to="/builds" className="muted-action">
-            <Icon name="chevron-left" size={16} />
-            Back to builds
-          </Link>
-        </div>
+        <EmptyState
+          title="Build not found."
+          message="This build may have been deleted or moved."
+          action={
+            <Link to="/builds" className="muted-action">
+              <Icon name="chevron-left" size={16} />
+              Back to builds
+            </Link>
+          }
+        />
       </div>
     );
   }
@@ -37,10 +40,7 @@ export function EditBuildPage() {
   if (form.error) {
     return (
       <div className="page-container page-container--form">
-        <div className="empty-state">
-          <h2>The forge is unavailable.</h2>
-          <p>{form.error}</p>
-        </div>
+        <EmptyState title="The forge is unavailable." message={form.error} />
       </div>
     );
   }

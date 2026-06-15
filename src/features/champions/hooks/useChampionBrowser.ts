@@ -55,6 +55,7 @@ export function useChampionBrowser() {
   });
 
   function resetFilters() {
+    setSearch("");
     setRole(null);
     setHouse(null);
     setRegion(null);
