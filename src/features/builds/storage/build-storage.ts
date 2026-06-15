@@ -41,12 +41,17 @@ export function readBuild(buildId: string): Build | null {
   return readBuilds().find((build) => build.id === buildId) ?? null;
 }
 
-function writeBuilds(builds: Build[]): void {
-  writeStorageValue(STORAGE_KEY, JSON.stringify(builds));
-  window.dispatchEvent(new Event(BUILD_STORAGE_EVENT));
+function writeBuilds(builds: Build[]): boolean {
+  const didWrite = writeStorageValue(STORAGE_KEY, JSON.stringify(builds));
+
+  if (didWrite) {
+    window.dispatchEvent(new Event(BUILD_STORAGE_EVENT));
+  }
+
+  return didWrite;
 }
 
-export function createBuild(input: CreateBuildInput): Build {
+export function createBuild(input: CreateBuildInput): Build | null {
   const build: Build = {
     ...input,
     id: createId(),
@@ -55,18 +60,17 @@ export function createBuild(input: CreateBuildInput): Build {
     createdAt: Date.now(),
   };
 
-  writeBuilds([build, ...readBuilds()]);
-  return build;
+  return writeBuilds([build, ...readBuilds()]) ? build : null;
 }
 
-export function updateBuild(buildId: string, patch: UpdateBuildInput): void {
+export function updateBuild(buildId: string, patch: UpdateBuildInput): boolean {
   const updatedBuilds = readBuilds().map((build) =>
     build.id === buildId ? { ...build, ...patch } : build,
   );
 
-  writeBuilds(updatedBuilds);
+  return writeBuilds(updatedBuilds);
 }
 
-export function deleteBuild(buildId: string): void {
-  writeBuilds(readBuilds().filter((build) => build.id !== buildId));
+export function deleteBuild(buildId: string): boolean {
+  return writeBuilds(readBuilds().filter((build) => build.id !== buildId));
 }

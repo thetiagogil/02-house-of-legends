@@ -39,6 +39,8 @@ export function BuildChampionPicker({
       <SearchBar
         value={search}
         onChange={onSearchChange}
+        onClear={() => onSearchChange("")}
+        label="Search build champions"
         placeholder="Search champions..."
       />
 
@@ -66,6 +68,7 @@ export function BuildChampionPicker({
             key={champion.id}
             type="button"
             onClick={() => onSelect(champion)}
+            aria-pressed={selectedChampionId === champion.id}
             className={
               selectedChampionId === champion.id
                 ? "champion-picker-card champion-picker-card--active"

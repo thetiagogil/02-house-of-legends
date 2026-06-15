@@ -64,6 +64,8 @@ export function BuildItemPicker({
       <SearchBar
         value={search}
         onChange={onSearchChange}
+        onClear={() => onSearchChange("")}
+        label="Search build items"
         placeholder="Search items..."
       />
 
@@ -92,6 +94,7 @@ export function BuildItemPicker({
               type="button"
               onClick={() => onSelect(item)}
               disabled={isTaken}
+              aria-pressed={isActive}
               className={
                 isActive
                   ? "item-picker-card item-picker-card--active"

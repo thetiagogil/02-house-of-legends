@@ -17,6 +17,7 @@ export function FilterButton({
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={
         active ? "filter-button filter-button--active" : "filter-button"
       }

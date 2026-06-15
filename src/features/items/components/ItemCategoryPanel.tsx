@@ -1,8 +1,7 @@
 import { ITEM_CATEGORIES } from "../api/data-dragon-items";
 import {
   type ActiveItemCategory,
-  itemCategoryHints,
-  itemCategoryLabels,
+  itemCategoryConfig,
 } from "../lib/item-browser";
 import type { ItemCategory } from "../types";
 
@@ -24,6 +23,7 @@ export function ItemCategoryPanel({
       <button
         type="button"
         onClick={() => onCategoryChange("All")}
+        aria-pressed={activeCategory === "All"}
         className={
           activeCategory === "All"
             ? "item-category-card item-category-card--active"
@@ -42,6 +42,7 @@ export function ItemCategoryPanel({
           key={category}
           type="button"
           onClick={() => onCategoryChange(category)}
+          aria-pressed={activeCategory === category}
           className={
             activeCategory === category
               ? "item-category-card item-category-card--active"
@@ -49,8 +50,8 @@ export function ItemCategoryPanel({
           }
         >
           <span>
-            <strong>{itemCategoryLabels[category]}</strong>
-            <small>{itemCategoryHints[category]}</small>
+            <strong>{itemCategoryConfig[category].label}</strong>
+            <small>{itemCategoryConfig[category].hint}</small>
           </span>
           <em>{itemCounts[category]}</em>
         </button>
