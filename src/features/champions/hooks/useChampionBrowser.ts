@@ -19,7 +19,7 @@ export const useChampionBrowser = () => {
   useEffect(() => {
     let shouldUpdate = true;
 
-    async function loadChampions() {
+    const loadChampions = async () => {
       try {
         const loadedChampions = await fetchChampions();
 
@@ -36,7 +36,7 @@ export const useChampionBrowser = () => {
           setIsLoading(false);
         }
       }
-    }
+    };
 
     loadChampions();
 
@@ -54,12 +54,12 @@ export const useChampionBrowser = () => {
     region,
   });
 
-  function resetFilters() {
+  const resetFilters = () => {
     setSearch("");
     setRole(null);
     setHouse(null);
     setRegion(null);
-  }
+  };
 
   return {
     allRegions,

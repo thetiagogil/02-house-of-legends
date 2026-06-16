@@ -4,7 +4,7 @@ import { Navbar } from "../shared/components/layout/Navbar";
 import { AppRoutes } from "./AppRoutes";
 import { ScrollToTop } from "./ScrollToTop";
 
-export default function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -15,4 +15,6 @@ export default function App() {
       <Footer />
     </BrowserRouter>
   );
-}
+};
+
+export default App;

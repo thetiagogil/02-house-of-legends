@@ -31,17 +31,17 @@ export const ChampionDetailsPage = () => {
     );
   }
 
-  function navigateToPreviousChampion() {
+  const navigateToPreviousChampion = () => {
     if (details.previousChampion) {
       navigate(`/champions/${details.previousChampion.id}`);
     }
-  }
+  };
 
-  function navigateToNextChampion() {
+  const navigateToNextChampion = () => {
     if (details.nextChampion) {
       navigate(`/champions/${details.nextChampion.id}`);
     }
-  }
+  };
 
   return (
     <div className="champion-detail">

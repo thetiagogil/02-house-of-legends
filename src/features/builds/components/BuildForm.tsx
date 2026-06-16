@@ -17,10 +17,10 @@ export const BuildForm = ({
   cancelPath,
   submitLabel = "Create Build",
 }: BuildFormProps) => {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     form.submitBuild();
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="build-create-form">

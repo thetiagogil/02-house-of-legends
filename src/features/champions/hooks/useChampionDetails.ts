@@ -14,7 +14,7 @@ export const useChampionDetails = (championId?: string) => {
   useEffect(() => {
     let shouldUpdate = true;
 
-    async function loadChampion() {
+    const loadChampion = async () => {
       if (!championId) {
         setIsLoading(false);
         setError("Champion not found.");
@@ -45,7 +45,7 @@ export const useChampionDetails = (championId?: string) => {
           setIsLoading(false);
         }
       }
-    }
+    };
 
     loadChampion();
 
@@ -64,15 +64,15 @@ export const useChampionDetails = (championId?: string) => {
     ? championImages.splash(champion.id, currentSkin?.num ?? 0)
     : "";
 
-  function showPreviousSkin() {
+  const showPreviousSkin = () => {
     setSkinIndex((currentIndex) => Math.max(0, currentIndex - 1));
-  }
+  };
 
-  function showNextSkin() {
+  const showNextSkin = () => {
     setSkinIndex((currentIndex) =>
       Math.min(visibleSkins.length - 1, currentIndex + 1),
     );
-  }
+  };
 
   return {
     champion,

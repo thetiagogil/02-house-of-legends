@@ -62,21 +62,21 @@ export const useBuildForm = ({
   const totalCost = getBuildTotalCost(selectedItems);
   const isValid = isBuildFormComplete(selectedChampion, title, selectedItems);
 
-  function setSlot(index: number, itemId: string) {
+  const setSlot = (index: number, itemId: string) => {
     setSlots((currentSlots) =>
       currentSlots.map((slot, currentIndex) =>
         currentIndex === index ? itemId : slot,
       ),
     );
-  }
+  };
 
-  function selectChampion(champion: ChampionSummary) {
+  const selectChampion = (champion: ChampionSummary) => {
     setChampionId(champion.id);
     setChampionSearch("");
     setPickerTarget({ type: "item", slotIndex: 0 });
-  }
+  };
 
-  function selectItem(item: Item) {
+  const selectItem = (item: Item) => {
     if (pickerTarget.type !== "item") {
       return;
     }
@@ -95,9 +95,9 @@ export const useBuildForm = ({
     if (nextEmptySlot >= 0) {
       setPickerTarget({ type: "item", slotIndex: nextEmptySlot });
     }
-  }
+  };
 
-  function submitBuild() {
+  const submitBuild = () => {
     setSaveError("");
 
     if (!isValid || !selectedChampion) {
@@ -132,7 +132,7 @@ export const useBuildForm = ({
     }
 
     onBuildSaved();
-  }
+  };
 
   return {
     artifactCategory,

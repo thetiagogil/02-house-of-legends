@@ -6,22 +6,22 @@ export const useBuilds = () => {
   const [builds, setBuilds] = useState<Build[]>(() => readBuilds());
 
   useEffect(() => {
-    function refreshBuilds() {
+    const refreshStoredBuilds = () => {
       setBuilds(readBuilds());
-    }
+    };
 
-    window.addEventListener(BUILD_STORAGE_EVENT, refreshBuilds);
-    window.addEventListener("storage", refreshBuilds);
+    window.addEventListener(BUILD_STORAGE_EVENT, refreshStoredBuilds);
+    window.addEventListener("storage", refreshStoredBuilds);
 
     return () => {
-      window.removeEventListener(BUILD_STORAGE_EVENT, refreshBuilds);
-      window.removeEventListener("storage", refreshBuilds);
+      window.removeEventListener(BUILD_STORAGE_EVENT, refreshStoredBuilds);
+      window.removeEventListener("storage", refreshStoredBuilds);
     };
   }, []);
 
-  function refreshBuilds() {
+  const refreshBuilds = () => {
     setBuilds(readBuilds());
-  }
+  };
 
   return { builds, refreshBuilds };
 };

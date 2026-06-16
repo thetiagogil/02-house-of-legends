@@ -15,7 +15,7 @@ export const useBuildFormData = () => {
   useEffect(() => {
     let shouldUpdate = true;
 
-    async function loadFormData() {
+    const loadFormData = async () => {
       try {
         const [loadedChampions, loadedItems, loadedVersion] = await Promise.all(
           [fetchChampions(), fetchItems(), getDataDragonVersion()],
@@ -36,7 +36,7 @@ export const useBuildFormData = () => {
           setIsLoading(false);
         }
       }
-    }
+    };
 
     loadFormData();
 

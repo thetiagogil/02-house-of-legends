@@ -25,7 +25,7 @@ export const useItemsBrowser = () => {
   useEffect(() => {
     let shouldUpdate = true;
 
-    async function loadItems() {
+    const loadItems = async () => {
       try {
         const [loadedItems, loadedVersion] = await Promise.all([
           fetchItems(),
@@ -46,7 +46,7 @@ export const useItemsBrowser = () => {
           setIsLoading(false);
         }
       }
-    }
+    };
 
     loadItems();
 
