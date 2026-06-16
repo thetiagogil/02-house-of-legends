@@ -1765,8 +1765,67 @@ option {
 }
 
 .danger-action:hover,
-.danger-action--confirming {
+.danger-action:focus-visible {
   color: var(--destructive);
+}
+
+.confirmation-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(0 0 0 / 0.68);
+  backdrop-filter: blur(8px);
+}
+
+.confirmation-dialog {
+  width: min(100%, 28rem);
+  border: 1px solid color-mix(in oklab, var(--gold) 28%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--card) 92%, black);
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem;
+}
+
+.confirmation-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.confirmation-dialog h2 {
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.confirmation-dialog__description {
+  margin: 1rem 0 0;
+  color: var(--foreground-soft);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.confirmation-dialog__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.danger-confirm-action {
+  border-color: var(--destructive);
+  color: var(--destructive);
+}
+
+.danger-confirm-action:hover {
+  background: var(--destructive);
+  color: var(--foreground);
 }
 
 .win-rate {
@@ -2907,6 +2966,15 @@ option {
     align-items: center;
     justify-content: flex-start;
     flex-direction: row;
+  }
+
+  .confirmation-dialog__actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .confirmation-dialog__actions .primary-action {
+    width: 100%;
   }
 
   .forge-preview {

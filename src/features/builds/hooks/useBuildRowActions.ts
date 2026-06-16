@@ -11,46 +11,46 @@ export const useBuildRowActions = ({
   build,
   onChange,
 }: UseBuildRowActionsInput) => {
-  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [showRecordControls, setShowRecordControls] = useState(false);
 
-  function changeWins(delta: number) {
+  const changeWins = (delta: number) => {
     if (updateBuild(build.id, { win: Math.max(0, build.win + delta) })) {
       onChange();
     }
-  }
+  };
 
-  function changeLosses(delta: number) {
+  const changeLosses = (delta: number) => {
     if (updateBuild(build.id, { loss: Math.max(0, build.loss + delta) })) {
       onChange();
     }
-  }
+  };
 
-  function handleDelete() {
-    if (!isConfirmingDelete) {
-      setIsConfirmingDelete(true);
-      return;
-    }
+  const openDeleteDialog = () => {
+    setIsDeleteDialogOpen(true);
+  };
 
+  const closeDeleteDialog = () => {
+    setIsDeleteDialogOpen(false);
+  };
+
+  const confirmDelete = () => {
     if (deleteBuild(build.id)) {
       onChange();
     }
-  }
+  };
 
-  function hideDeleteConfirmation() {
-    setIsConfirmingDelete(false);
-  }
-
-  function toggleRecordControls() {
+  const toggleRecordControls = () => {
     setShowRecordControls((currentValue) => !currentValue);
-  }
+  };
 
   return {
     changeLosses,
     changeWins,
-    handleDelete,
-    hideDeleteConfirmation,
-    isConfirmingDelete,
+    closeDeleteDialog,
+    confirmDelete,
+    isDeleteDialogOpen,
+    openDeleteDialog,
     showRecordControls,
     toggleRecordControls,
   };

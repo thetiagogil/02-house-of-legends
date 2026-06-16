@@ -5,6 +5,7 @@ import { useBuildRowActions } from "../hooks/useBuildRowActions";
 import { getBuildCost, getBuildGames } from "../lib/build-metrics";
 import { calculateWinRate, getWinRateClass } from "../lib/win-rate";
 import type { Build } from "../types";
+import { BuildDeleteDialog } from "./BuildDeleteDialog";
 import { BuildStat } from "./BuildStat";
 import { CounterStat } from "./CounterStat";
 
@@ -18,9 +19,10 @@ export const BuildRow = ({ build, version, onChange }: BuildRowProps) => {
   const {
     changeLosses,
     changeWins,
-    handleDelete,
-    hideDeleteConfirmation,
-    isConfirmingDelete,
+    closeDeleteDialog,
+    confirmDelete,
+    isDeleteDialogOpen,
+    openDeleteDialog,
     showRecordControls,
     toggleRecordControls,
   } = useBuildRowActions({ build, onChange });
@@ -98,20 +100,25 @@ export const BuildRow = ({ build, version, onChange }: BuildRowProps) => {
           </button>
           <button
             type="button"
-            onClick={handleDelete}
-            onMouseLeave={hideDeleteConfirmation}
+            onClick={openDeleteDialog}
             aria-label="Delete build"
-            className={
-              isConfirmingDelete
-                ? "build-row__icon-action danger-action danger-action--confirming"
-                : "build-row__icon-action danger-action"
-            }
-            title={isConfirmingDelete ? "Click again to confirm" : "Delete"}
+            aria-haspopup="dialog"
+            aria-expanded={isDeleteDialogOpen}
+            className="build-row__icon-action danger-action"
+            title="Delete build"
           >
             <Icon name="trash" size={16} />
           </button>
         </div>
       </div>
+
+      {isDeleteDialogOpen && (
+        <BuildDeleteDialog
+          buildTitle={build.title}
+          onCancel={closeDeleteDialog}
+          onConfirm={confirmDelete}
+        />
+      )}
 
       {showRecordControls && (
         <div
