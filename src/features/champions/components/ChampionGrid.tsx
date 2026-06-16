@@ -5,7 +5,7 @@ type ChampionGridProps = {
   champions: ChampionSummary[];
 };
 
-export function ChampionGrid({ champions }: ChampionGridProps) {
+export const ChampionGrid = ({ champions }: ChampionGridProps) => {
   return (
     <div className="champions-grid">
       {champions.map((champion) => (
@@ -13,4 +13,4 @@ export function ChampionGrid({ champions }: ChampionGridProps) {
       ))}
     </div>
   );
-}
+};

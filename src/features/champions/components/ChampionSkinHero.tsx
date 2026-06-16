@@ -12,7 +12,7 @@ type ChampionSkinHeroProps = {
   onSkinSelect: (skinIndex: number) => void;
 };
 
-export function ChampionSkinHero({
+export const ChampionSkinHero = ({
   currentSkin,
   skinIndex,
   splashImage,
@@ -20,7 +20,7 @@ export function ChampionSkinHero({
   onNextSkin,
   onPreviousSkin,
   onSkinSelect,
-}: ChampionSkinHeroProps) {
+}: ChampionSkinHeroProps) => {
   return (
     <section className="skin-hero">
       <img
@@ -68,4 +68,4 @@ export function ChampionSkinHero({
       </div>
     </section>
   );
-}
+};

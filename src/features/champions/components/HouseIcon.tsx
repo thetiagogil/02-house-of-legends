@@ -16,7 +16,7 @@ const houseCrests: Record<House, string> = {
   Slytherin: slytherinCrest,
 };
 
-export function HouseIcon({ house, className = "" }: HouseIconProps) {
+export const HouseIcon = ({ house, className = "" }: HouseIconProps) => {
   return (
     <img
       src={houseCrests[house]}
@@ -25,4 +25,4 @@ export function HouseIcon({ house, className = "" }: HouseIconProps) {
       className={className}
     />
   );
-}
+};

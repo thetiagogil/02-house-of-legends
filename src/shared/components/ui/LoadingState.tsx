@@ -2,13 +2,13 @@ type LoadingStateProps = {
   label?: string;
 };
 
-export function LoadingState({
+export const LoadingState = ({
   label = "Summoning data...",
-}: LoadingStateProps) {
+}: LoadingStateProps) => {
   return (
     <div className="loading-state" role="status">
       <span className="loading-spinner" />
       <span>{label}</span>
     </div>
   );
-}
+};

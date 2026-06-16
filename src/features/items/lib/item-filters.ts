@@ -1,6 +1,6 @@
 import type { Item } from "../types";
 
-export function isVisibleItem(item: Item): boolean {
+export const isVisibleItem = (item: Item): boolean => {
   if (Number(item.id) >= 100000) {
     return false;
   }
@@ -29,4 +29,4 @@ export function isVisibleItem(item: Item): boolean {
   }
 
   return true;
-}
+};

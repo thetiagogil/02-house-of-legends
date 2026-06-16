@@ -12,13 +12,13 @@ type BuildCorePanelProps = {
   title: string;
 };
 
-export function BuildCorePanel({
+export const BuildCorePanel = ({
   pickerTarget,
   selectedChampion,
   setPickerTarget,
   setTitle,
   title,
-}: BuildCorePanelProps) {
+}: BuildCorePanelProps) => {
   return (
     <div className="forge-panel">
       <div className="section-heading">
@@ -51,4 +51,4 @@ export function BuildCorePanel({
       </div>
     </div>
   );
-}
+};

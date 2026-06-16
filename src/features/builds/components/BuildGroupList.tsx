@@ -7,11 +7,11 @@ type BuildGroupListProps = {
   onChange: () => void;
 };
 
-export function BuildGroupList({
+export const BuildGroupList = ({
   groups,
   version,
   onChange,
-}: BuildGroupListProps) {
+}: BuildGroupListProps) => {
   return (
     <div className="build-groups">
       {groups.map((group) => (
@@ -25,4 +25,4 @@ export function BuildGroupList({
       ))}
     </div>
   );
-}
+};

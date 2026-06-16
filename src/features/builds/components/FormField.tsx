@@ -6,7 +6,7 @@ type FormFieldProps = {
   children: ReactNode;
 };
 
-export function FormField({ label, htmlFor, children }: FormFieldProps) {
+export const FormField = ({ label, htmlFor, children }: FormFieldProps) => {
   return (
     <div className="field">
       <label htmlFor={htmlFor} className="field__label">
@@ -15,4 +15,4 @@ export function FormField({ label, htmlFor, children }: FormFieldProps) {
       {children}
     </div>
   );
-}
+};

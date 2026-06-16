@@ -6,7 +6,7 @@ type ItemGridProps = {
   version: string;
 };
 
-export function ItemGrid({ items, version }: ItemGridProps) {
+export const ItemGrid = ({ items, version }: ItemGridProps) => {
   return (
     <div className="item-browser-grid">
       {items.map((item) => (
@@ -14,4 +14,4 @@ export function ItemGrid({ items, version }: ItemGridProps) {
       ))}
     </div>
   );
-}
+};

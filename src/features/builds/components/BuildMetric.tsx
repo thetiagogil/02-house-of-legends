@@ -3,11 +3,11 @@ type BuildMetricProps = {
   value: string;
 };
 
-export function BuildMetric({ label, value }: BuildMetricProps) {
+export const BuildMetric = ({ label, value }: BuildMetricProps) => {
   return (
     <div className="forge-stat">
       <p>{label}</p>
       <strong>{value}</strong>
     </div>
   );
-}
+};

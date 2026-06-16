@@ -7,10 +7,10 @@ type UseBuildRowActionsInput = {
   onChange: () => void;
 };
 
-export function useBuildRowActions({
+export const useBuildRowActions = ({
   build,
   onChange,
-}: UseBuildRowActionsInput) {
+}: UseBuildRowActionsInput) => {
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const [showRecordControls, setShowRecordControls] = useState(false);
 
@@ -54,4 +54,4 @@ export function useBuildRowActions({
     showRecordControls,
     toggleRecordControls,
   };
-}
+};

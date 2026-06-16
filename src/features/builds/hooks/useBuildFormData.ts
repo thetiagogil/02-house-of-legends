@@ -5,7 +5,7 @@ import type { ChampionSummary } from "../../champions/types";
 import { fetchItems } from "../../items/api/data-dragon-items";
 import type { Item } from "../../items/types";
 
-export function useBuildFormData() {
+export const useBuildFormData = () => {
   const [champions, setChampions] = useState<ChampionSummary[]>([]);
   const [items, setItems] = useState<Item[]>([]);
   const [version, setVersion] = useState("");
@@ -52,4 +52,4 @@ export function useBuildFormData() {
     items,
     version,
   };
-}
+};

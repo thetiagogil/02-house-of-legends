@@ -7,12 +7,12 @@ type EmptyStateProps = {
   size?: "default" | "large";
 };
 
-export function EmptyState({
+export const EmptyState = ({
   title,
   message,
   action,
   size = "default",
-}: EmptyStateProps) {
+}: EmptyStateProps) => {
   return (
     <div
       className={
@@ -24,4 +24,4 @@ export function EmptyState({
       {action}
     </div>
   );
-}
+};

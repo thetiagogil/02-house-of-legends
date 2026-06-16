@@ -7,12 +7,12 @@ type CounterStatProps = {
   onSubtract: () => void;
 };
 
-export function CounterStat({
+export const CounterStat = ({
   label,
   value,
   onAdd,
   onSubtract,
-}: CounterStatProps) {
+}: CounterStatProps) => {
   return (
     <div className="build-stat">
       <p>{label}</p>
@@ -31,4 +31,4 @@ export function CounterStat({
       </div>
     </div>
   );
-}
+};

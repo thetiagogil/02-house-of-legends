@@ -15,15 +15,15 @@ export type UpdateBuildInput = Partial<
   Pick<Build, "champion" | "items" | "loss" | "title" | "win">
 >;
 
-function createId(): string {
+const createId = (): string => {
   if (crypto.randomUUID) {
     return crypto.randomUUID();
   }
 
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
+};
 
-export function readBuilds(): Build[] {
+export const readBuilds = (): Build[] => {
   try {
     const parsed = JSON.parse(readStorageValue(STORAGE_KEY) ?? "[]") as unknown;
 
@@ -35,13 +35,13 @@ export function readBuilds(): Build[] {
   } catch {
     return [];
   }
-}
+};
 
-export function readBuild(buildId: string): Build | null {
+export const readBuild = (buildId: string): Build | null => {
   return readBuilds().find((build) => build.id === buildId) ?? null;
-}
+};
 
-function writeBuilds(builds: Build[]): boolean {
+const writeBuilds = (builds: Build[]): boolean => {
   const didWrite = writeStorageValue(STORAGE_KEY, JSON.stringify(builds));
 
   if (didWrite) {
@@ -49,9 +49,9 @@ function writeBuilds(builds: Build[]): boolean {
   }
 
   return didWrite;
-}
+};
 
-export function createBuild(input: CreateBuildInput): Build | null {
+export const createBuild = (input: CreateBuildInput): Build | null => {
   const build: Build = {
     ...input,
     id: createId(),
@@ -61,16 +61,19 @@ export function createBuild(input: CreateBuildInput): Build | null {
   };
 
   return writeBuilds([build, ...readBuilds()]) ? build : null;
-}
+};
 
-export function updateBuild(buildId: string, patch: UpdateBuildInput): boolean {
+export const updateBuild = (
+  buildId: string,
+  patch: UpdateBuildInput,
+): boolean => {
   const updatedBuilds = readBuilds().map((build) =>
     build.id === buildId ? { ...build, ...patch } : build,
   );
 
   return writeBuilds(updatedBuilds);
-}
+};
 
-export function deleteBuild(buildId: string): boolean {
+export const deleteBuild = (buildId: string): boolean => {
   return writeBuilds(readBuilds().filter((build) => build.id !== buildId));
-}
+};

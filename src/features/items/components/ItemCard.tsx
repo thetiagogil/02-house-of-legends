@@ -6,7 +6,7 @@ type ItemCardProps = {
   version: string;
 };
 
-export function ItemCard({ item, version }: ItemCardProps) {
+export const ItemCard = ({ item, version }: ItemCardProps) => {
   const detail = item.plaintext || item.tags.slice(0, 3).join(" / ");
 
   return (
@@ -33,4 +33,4 @@ export function ItemCard({ item, version }: ItemCardProps) {
       </div>
     </article>
   );
-}
+};

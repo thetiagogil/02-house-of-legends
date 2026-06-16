@@ -5,7 +5,7 @@ import { BuildsEmptyState } from "./_components/BuildsEmptyState";
 import { BuildSortControls } from "./_components/BuildSortControls";
 import { BuildsToolbar } from "./_components/BuildsToolbar";
 
-export function BuildsPage() {
+export const BuildsPage = () => {
   const {
     builds,
     groupedBuilds,
@@ -51,4 +51,4 @@ export function BuildsPage() {
       )}
     </div>
   );
-}
+};

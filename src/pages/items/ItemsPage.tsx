@@ -2,7 +2,7 @@ import { ItemCategoryPanel } from "../../features/items/components/ItemCategoryP
 import { ItemResultsPanel } from "../../features/items/components/ItemResultsPanel";
 import { useItemsBrowser } from "../../features/items/hooks/useItemsBrowser";
 
-export function ItemsPage() {
+export const ItemsPage = () => {
   const browser = useItemsBrowser();
 
   return (
@@ -35,4 +35,4 @@ export function ItemsPage() {
       </section>
     </div>
   );
-}
+};

@@ -10,7 +10,7 @@ type ChampionPanelProps = {
   champion: ChampionDetail;
 };
 
-export function ChampionPanel({ champion }: ChampionPanelProps) {
+export const ChampionPanel = ({ champion }: ChampionPanelProps) => {
   const lore = cleanDataDragonText(champion.lore || champion.blurb);
 
   return (
@@ -55,4 +55,4 @@ export function ChampionPanel({ champion }: ChampionPanelProps) {
       />
     </div>
   );
-}
+};

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { EmptyState } from "../../../shared/components/ui/EmptyState";
 
-export function BuildsEmptyState() {
+export const BuildsEmptyState = () => {
   return (
     <EmptyState
       title="No builds forged yet."
@@ -13,4 +13,4 @@ export function BuildsEmptyState() {
       }
     />
   );
-}
+};

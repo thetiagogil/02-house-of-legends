@@ -49,25 +49,25 @@ const regionScores: Partial<Record<Region, Partial<HouseScores>>> = {
   Runeterra: { Slytherin: 1, Hufflepuff: 1, Gryffindor: 1, Ravenclaw: 1 },
 };
 
-function addScores(scores: HouseScores, values: Partial<HouseScores>) {
+const addScores = (scores: HouseScores, values: Partial<HouseScores>) => {
   for (const house of HOUSES) {
     scores[house] += values[house] ?? 0;
   }
-}
+};
 
-function getTieBreaker(championId: string, house: House): number {
+const getTieBreaker = (championId: string, house: House): number => {
   const seed = championId
     .split("")
     .reduce((total, character) => total + character.charCodeAt(0), 0);
   return (seed + HOUSES.indexOf(house) * 7) % HOUSES.length;
-}
+};
 
-export function getHouseForChampion({
+export const getHouseForChampion = ({
   id,
   tags,
   info,
   region,
-}: HouseScoreInput): House {
+}: HouseScoreInput): House => {
   const scores: HouseScores = {
     Gryffindor: 0,
     Hufflepuff: 0,
@@ -107,4 +107,4 @@ export function getHouseForChampion({
 
     return getTieBreaker(id, secondHouse) - getTieBreaker(id, firstHouse);
   })[0];
-}
+};

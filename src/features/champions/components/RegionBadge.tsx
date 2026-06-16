@@ -5,6 +5,6 @@ type RegionBadgeProps = {
   region: Region;
 };
 
-export function RegionBadge({ region }: RegionBadgeProps) {
+export const RegionBadge = ({ region }: RegionBadgeProps) => {
   return <span className="region-badge">{getRegionLabel(region)}</span>;
-}
+};

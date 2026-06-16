@@ -1,6 +1,6 @@
 import type { Build } from "../types";
 
-export function calculateWinRate(build: Build): number {
+export const calculateWinRate = (build: Build): number => {
   const games = build.win + build.loss;
 
   if (games === 0) {
@@ -12,9 +12,9 @@ export function calculateWinRate(build: Build): number {
   }
 
   return Math.round((build.win / games) * 100);
-}
+};
 
-export function getWinRateClass(rate: number, games: number): string {
+export const getWinRateClass = (rate: number, games: number): string => {
   if (games === 0) {
     return "win-rate win-rate--empty";
   }
@@ -28,4 +28,4 @@ export function getWinRateClass(rate: number, games: number): string {
   }
 
   return "win-rate win-rate--low";
-}
+};

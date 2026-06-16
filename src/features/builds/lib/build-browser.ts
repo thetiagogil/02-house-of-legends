@@ -18,7 +18,7 @@ export const BUILD_SORT_OPTIONS: BuildSort[] = [
   "Cost",
 ];
 
-export function filterBuilds(builds: Build[], search: string): Build[] {
+export const filterBuilds = (builds: Build[], search: string): Build[] => {
   const query = search.trim().toLowerCase();
 
   if (!query) {
@@ -31,9 +31,9 @@ export function filterBuilds(builds: Build[], search: string): Build[] {
       build.champion.name.toLowerCase().includes(query)
     );
   });
-}
+};
 
-export function sortBuilds(builds: Build[], sort: BuildSort): Build[] {
+export const sortBuilds = (builds: Build[], sort: BuildSort): Build[] => {
   return [...builds].sort((firstBuild, secondBuild) => {
     if (sort === "Champion") {
       return firstBuild.champion.name.localeCompare(secondBuild.champion.name);
@@ -53,9 +53,9 @@ export function sortBuilds(builds: Build[], sort: BuildSort): Build[] {
 
     return secondBuild.createdAt - firstBuild.createdAt;
   });
-}
+};
 
-export function groupBuildsByChampion(builds: Build[]): BuildGroup[] {
+export const groupBuildsByChampion = (builds: Build[]): BuildGroup[] => {
   const groups = new Map<string, Build[]>();
 
   builds.forEach((build) => {
@@ -72,4 +72,4 @@ export function groupBuildsByChampion(builds: Build[]): BuildGroup[] {
     .sort((firstGroup, secondGroup) =>
       firstGroup.champion.name.localeCompare(secondGroup.champion.name),
     );
-}
+};

@@ -9,10 +9,10 @@ type BuildSortControlsProps = {
   onSortChange: (sort: BuildSort) => void;
 };
 
-export function BuildSortControls({
+export const BuildSortControls = ({
   sort,
   onSortChange,
-}: BuildSortControlsProps) {
+}: BuildSortControlsProps) => {
   return (
     <div className="filter-row build-sort-row">
       {BUILD_SORT_OPTIONS.map((option) => (
@@ -26,4 +26,4 @@ export function BuildSortControls({
       ))}
     </div>
   );
-}
+};

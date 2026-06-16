@@ -4,11 +4,11 @@ type BuildStatProps = {
   className?: string;
 };
 
-export function BuildStat({ label, value, className = "" }: BuildStatProps) {
+export const BuildStat = ({ label, value, className = "" }: BuildStatProps) => {
   return (
     <div className="build-stat">
       <p>{label}</p>
       <strong className={className}>{value}</strong>
     </div>
   );
-}
+};

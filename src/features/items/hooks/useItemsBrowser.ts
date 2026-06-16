@@ -12,7 +12,7 @@ import {
 } from "../lib/item-browser";
 import type { Item } from "../types";
 
-export function useItemsBrowser() {
+export const useItemsBrowser = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [version, setVersion] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -77,4 +77,4 @@ export function useItemsBrowser() {
     version,
     visibleItems,
   };
-}
+};

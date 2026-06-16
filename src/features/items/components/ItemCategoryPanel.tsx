@@ -12,12 +12,12 @@ type ItemCategoryPanelProps = {
   onCategoryChange: (category: ActiveItemCategory) => void;
 };
 
-export function ItemCategoryPanel({
+export const ItemCategoryPanel = ({
   activeCategory,
   itemCounts,
   totalCount,
   onCategoryChange,
-}: ItemCategoryPanelProps) {
+}: ItemCategoryPanelProps) => {
   return (
     <aside className="item-category-panel" aria-label="Item categories">
       <button
@@ -58,4 +58,4 @@ export function ItemCategoryPanel({
       ))}
     </aside>
   );
-}
+};

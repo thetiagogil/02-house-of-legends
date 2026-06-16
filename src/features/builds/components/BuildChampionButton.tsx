@@ -9,11 +9,11 @@ type BuildChampionButtonProps = {
   onSelect: () => void;
 };
 
-export function BuildChampionButton({
+export const BuildChampionButton = ({
   champion,
   isActive,
   onSelect,
-}: BuildChampionButtonProps) {
+}: BuildChampionButtonProps) => {
   return (
     <button
       type="button"
@@ -43,4 +43,4 @@ export function BuildChampionButton({
       </span>
     </button>
   );
-}
+};

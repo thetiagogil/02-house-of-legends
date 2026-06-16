@@ -7,7 +7,7 @@ import {
 } from "../lib/champion-filters";
 import type { ChampionSummary, House, Region } from "../types";
 
-export function useChampionBrowser() {
+export const useChampionBrowser = () => {
   const [champions, setChampions] = useState<ChampionSummary[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -78,4 +78,4 @@ export function useChampionBrowser() {
     setRole,
     setSearch,
   };
-}
+};

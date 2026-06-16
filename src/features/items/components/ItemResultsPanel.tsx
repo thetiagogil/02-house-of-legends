@@ -19,7 +19,7 @@ type ItemResultsPanelProps = {
   onSortChange: (sort: ItemSort) => void;
 };
 
-export function ItemResultsPanel({
+export const ItemResultsPanel = ({
   activeHint,
   activeLabel,
   error,
@@ -30,7 +30,7 @@ export function ItemResultsPanel({
   visibleItems,
   onSearchChange,
   onSortChange,
-}: ItemResultsPanelProps) {
+}: ItemResultsPanelProps) => {
   return (
     <div className="item-results-panel">
       <div className="section-heading">
@@ -82,4 +82,4 @@ export function ItemResultsPanel({
       )}
     </div>
   );
-}
+};

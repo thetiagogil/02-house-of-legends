@@ -6,7 +6,7 @@ import { useChampionDetails } from "../../features/champions/hooks/useChampionDe
 import { ErrorState } from "../../shared/components/ui/ErrorState";
 import { LoadingState } from "../../shared/components/ui/LoadingState";
 
-export function ChampionDetailsPage() {
+export const ChampionDetailsPage = () => {
   const { championId } = useParams();
   const navigate = useNavigate();
   const details = useChampionDetails(championId);
@@ -67,4 +67,4 @@ export function ChampionDetailsPage() {
       </section>
     </div>
   );
-}
+};

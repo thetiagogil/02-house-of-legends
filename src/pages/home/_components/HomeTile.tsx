@@ -9,13 +9,13 @@ type HomeTileProps = {
   to: string;
 };
 
-export function HomeTile({
+export const HomeTile = ({
   championId,
   index,
   subtitle,
   title,
   to,
-}: HomeTileProps) {
+}: HomeTileProps) => {
   const imageUrl = championImages.centered(championId);
 
   return (
@@ -42,4 +42,4 @@ export function HomeTile({
       </span>
     </Link>
   );
-}
+};

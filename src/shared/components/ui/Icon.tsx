@@ -17,7 +17,7 @@ type IconProps = {
   className?: string;
 };
 
-export function Icon({ name, size = 20, className = "" }: IconProps) {
+export const Icon = ({ name, size = 20, className = "" }: IconProps) => {
   return (
     <svg
       className={className}
@@ -80,4 +80,4 @@ export function Icon({ name, size = 20, className = "" }: IconProps) {
       {name === "chevron-down" && <path d="m6 9 6 6 6-6" />}
     </svg>
   );
-}
+};

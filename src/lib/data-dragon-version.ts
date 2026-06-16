@@ -5,23 +5,23 @@ const VERSION_KEY = "house-of-legends-ddragon-version";
 let cachedVersion: string | null = null;
 let versionPromise: Promise<string> | null = null;
 
-function readStoredVersion(): string | null {
+const readStoredVersion = (): string | null => {
   try {
     return sessionStorage.getItem(VERSION_KEY);
   } catch {
     return null;
   }
-}
+};
 
-function writeStoredVersion(version: string): void {
+const writeStoredVersion = (version: string): void => {
   try {
     sessionStorage.setItem(VERSION_KEY, version);
   } catch {
     // Session storage is an optimization; app data can still load without it.
   }
-}
+};
 
-export async function getDataDragonVersion(): Promise<string> {
+export const getDataDragonVersion = async (): Promise<string> => {
   if (cachedVersion) {
     return cachedVersion;
   }
@@ -54,4 +54,4 @@ export async function getDataDragonVersion(): Promise<string> {
   }
 
   return versionPromise;
-}
+};

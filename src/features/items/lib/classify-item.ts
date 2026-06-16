@@ -9,7 +9,7 @@ export type ClassifiableItem = {
   into?: string[];
 };
 
-export function classifyItem(item: ClassifiableItem): ItemCategory {
+export const classifyItem = (item: ClassifiableItem): ItemCategory => {
   const tags = item.tags ?? [];
   const total = item.gold?.total ?? 0;
   const hasFrom = Array.isArray(item.from) && item.from.length > 0;
@@ -40,4 +40,4 @@ export function classifyItem(item: ClassifiableItem): ItemCategory {
   }
 
   return "Basic";
-}
+};

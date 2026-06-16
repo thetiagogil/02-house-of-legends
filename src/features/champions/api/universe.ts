@@ -20,25 +20,25 @@ type ChampionFactionLookupInput = {
   name: string;
 };
 
-function normalizeChampionKey(value: string): string {
+const normalizeChampionKey = (value: string): string => {
   return value.toLowerCase().replace(/[^a-z0-9]/g, "");
-}
+};
 
-function setFaction(
+const setFaction = (
   factions: Record<string, string>,
   key: string,
   faction: string,
-) {
+) => {
   const normalizedKey = normalizeChampionKey(key);
 
   if (normalizedKey) {
     factions[normalizedKey] = faction;
   }
-}
+};
 
-function buildFactionLookup(
+const buildFactionLookup = (
   champions: UniverseChampion[],
-): Record<string, string> {
+): Record<string, string> => {
   const factions: Record<string, string> = {};
 
   for (const champion of champions) {
@@ -51,19 +51,21 @@ function buildFactionLookup(
   }
 
   return factions;
-}
+};
 
-export function getChampionFaction(
+export const getChampionFaction = (
   factions: Record<string, string>,
   champion: ChampionFactionLookupInput,
-): string | undefined {
+): string | undefined => {
   return (
     factions[normalizeChampionKey(champion.id)] ??
     factions[normalizeChampionKey(champion.name)]
   );
-}
+};
 
-export async function fetchChampionFactions(): Promise<Record<string, string>> {
+export const fetchChampionFactions = async (): Promise<
+  Record<string, string>
+> => {
   if (!championFactionsPromise) {
     championFactionsPromise = fetchJson<UniverseChampionBrowseResponse>(
       CHAMPION_FACTIONS_URL,
@@ -73,4 +75,4 @@ export async function fetchChampionFactions(): Promise<Record<string, string>> {
   }
 
   return championFactionsPromise;
-}
+};

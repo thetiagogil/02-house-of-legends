@@ -5,7 +5,7 @@ type StatBarProps = {
 
 const segments = [0, 1, 2, 3, 4];
 
-export function StatBar({ label, value }: StatBarProps) {
+export const StatBar = ({ label, value }: StatBarProps) => {
   const filledSegments = Math.round(value / 2);
 
   return (
@@ -25,4 +25,4 @@ export function StatBar({ label, value }: StatBarProps) {
       </div>
     </div>
   );
-}
+};

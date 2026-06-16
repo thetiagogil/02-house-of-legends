@@ -8,7 +8,7 @@ import { HomePage } from "../pages/home/HomePage";
 import { ItemsPage } from "../pages/items/ItemsPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 
-export function AppRoutes() {
+export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -21,4 +21,4 @@ export function AppRoutes() {
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
-}
+};

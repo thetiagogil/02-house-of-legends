@@ -17,7 +17,7 @@ type BuildLoadoutPanelProps = {
   version: string;
 };
 
-export function BuildLoadoutPanel({
+export const BuildLoadoutPanel = ({
   completedSlots,
   pickerTarget,
   selectedItems,
@@ -25,7 +25,7 @@ export function BuildLoadoutPanel({
   setSlot,
   totalCost,
   version,
-}: BuildLoadoutPanelProps) {
+}: BuildLoadoutPanelProps) => {
   return (
     <div className="forge-panel">
       <div className="section-heading">
@@ -67,4 +67,4 @@ export function BuildLoadoutPanel({
       </div>
     </div>
   );
-}
+};

@@ -37,10 +37,10 @@ type ChampionDetailResponse = {
   data: Record<string, DataDragonChampionDetail>;
 };
 
-function mapChampionSummary(
+const mapChampionSummary = (
   champion: DataDragonChampionSummary,
   explicitRegion?: string,
-): ChampionSummary {
+): ChampionSummary => {
   const region = normalizeRegion(
     explicitRegion ?? champion.region ?? champion.faction,
   );
@@ -61,9 +61,9 @@ function mapChampionSummary(
     }),
     region,
   };
-}
+};
 
-export async function fetchChampions(): Promise<ChampionSummary[]> {
+export const fetchChampions = async (): Promise<ChampionSummary[]> => {
   if (!championsPromise) {
     championsPromise = getDataDragonVersion()
       .then(async (version) => {
@@ -90,11 +90,11 @@ export async function fetchChampions(): Promise<ChampionSummary[]> {
   }
 
   return championsPromise;
-}
+};
 
-export async function fetchChampion(
+export const fetchChampion = async (
   championId: string,
-): Promise<ChampionDetail> {
+): Promise<ChampionDetail> => {
   const cached = championDetailPromises.get(championId);
 
   if (cached) {
@@ -139,4 +139,4 @@ export async function fetchChampion(
 
   championDetailPromises.set(championId, promise);
   return promise;
-}
+};

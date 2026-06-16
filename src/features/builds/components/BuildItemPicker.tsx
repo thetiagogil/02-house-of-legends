@@ -21,7 +21,7 @@ type BuildItemPickerProps = {
   onClear: () => void;
 };
 
-export function BuildItemPicker({
+export const BuildItemPicker = ({
   items,
   selectedItemIds,
   currentItemId,
@@ -33,7 +33,7 @@ export function BuildItemPicker({
   onArtifactCategoryChange,
   onSelect,
   onClear,
-}: BuildItemPickerProps) {
+}: BuildItemPickerProps) => {
   const filteredItems = filterBuildItemOptions(
     items,
     search,
@@ -125,4 +125,4 @@ export function BuildItemPicker({
       </div>
     </>
   );
-}
+};

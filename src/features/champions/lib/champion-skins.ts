@@ -1,22 +1,22 @@
 import type { ChampionSkin, ChampionSummary } from "../types";
 
-export function getVisibleSkins(skins: ChampionSkin[]): ChampionSkin[] {
+export const getVisibleSkins = (skins: ChampionSkin[]): ChampionSkin[] => {
   const baseSkins = skins.filter((skin) => !skin.name.includes("("));
   return baseSkins.length > 0 ? baseSkins : skins;
-}
+};
 
-export function getSkinLabel(skin?: ChampionSkin): string {
+export const getSkinLabel = (skin?: ChampionSkin): string => {
   if (!skin) {
     return "";
   }
 
   return skin.name === "default" ? "Classic" : skin.name;
-}
+};
 
-export function getAdjacentChampions(
+export const getAdjacentChampions = (
   champions: ChampionSummary[],
   championId?: string,
-) {
+) => {
   const currentIndex = champions.findIndex(
     (currentChampion) => currentChampion.id === championId,
   );
@@ -28,4 +28,4 @@ export function getAdjacentChampions(
         ? champions[currentIndex + 1]
         : null,
   };
-}
+};

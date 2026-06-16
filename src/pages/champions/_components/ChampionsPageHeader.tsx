@@ -3,10 +3,10 @@ type ChampionsPageHeaderProps = {
   totalCount: number;
 };
 
-export function ChampionsPageHeader({
+export const ChampionsPageHeader = ({
   visibleCount,
   totalCount,
-}: ChampionsPageHeaderProps) {
+}: ChampionsPageHeaderProps) => {
   return (
     <header className="page-header">
       <h1>Champions</h1>
@@ -15,4 +15,4 @@ export function ChampionsPageHeader({
       </p>
     </header>
   );
-}
+};

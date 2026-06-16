@@ -5,7 +5,7 @@ import { EmptyState } from "../../shared/components/ui/EmptyState";
 import { LoadingState } from "../../shared/components/ui/LoadingState";
 import { ChampionsPageHeader } from "./_components/ChampionsPageHeader";
 
-export function ChampionsPage() {
+export const ChampionsPage = () => {
   const browser = useChampionBrowser();
 
   return (
@@ -51,4 +51,4 @@ export function ChampionsPage() {
         )}
     </div>
   );
-}
+};

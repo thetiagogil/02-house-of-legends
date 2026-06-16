@@ -27,14 +27,14 @@ const REGION_ALIASES: Record<string, Region> = {
   unaffiliated: "Runeterra",
 };
 
-function normalizeRegionValue(value: string): string {
+const normalizeRegionValue = (value: string): string => {
   return value
     .trim()
     .toLowerCase()
     .replace(/[\s_-]/g, "");
-}
+};
 
-function formatRegionLabel(value: string): Region | null {
+const formatRegionLabel = (value: string): Region | null => {
   const words = value
     .trim()
     .replace(/[_-]/g, " ")
@@ -51,9 +51,9 @@ function formatRegionLabel(value: string): Region | null {
       (word) => `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`,
     )
     .join(" ");
-}
+};
 
-function normalizeExplicitRegion(value: string): Region | null {
+const normalizeExplicitRegion = (value: string): Region | null => {
   const normalizedValue = value
     .trim()
     .toLowerCase()
@@ -77,13 +77,13 @@ function normalizeExplicitRegion(value: string): Region | null {
   })?.[0];
 
   return knownRegion ?? formatRegionLabel(value);
-}
+};
 
-export function getRegionLabel(region: Region): string {
+export const getRegionLabel = (region: Region): string => {
   return REGION_LABEL[region] ?? region;
-}
+};
 
-export function normalizeRegion(explicitRegion?: string): Region {
+export const normalizeRegion = (explicitRegion?: string): Region => {
   if (explicitRegion) {
     const knownRegion = normalizeExplicitRegion(explicitRegion);
 
@@ -93,4 +93,4 @@ export function normalizeRegion(explicitRegion?: string): Region {
   }
 
   return DEFAULT_REGION;
-}
+};

@@ -5,7 +5,7 @@ import { EMPTY_BUILD_SLOTS } from "../../features/builds/lib/build-form-options"
 import { EmptyState } from "../../shared/components/ui/EmptyState";
 import { LoadingState } from "../../shared/components/ui/LoadingState";
 
-export function NewBuildPage() {
+export const NewBuildPage = () => {
   const navigate = useNavigate();
   const form = useBuildForm({
     onBuildSaved: () => navigate("/builds"),
@@ -35,4 +35,4 @@ export function NewBuildPage() {
       <BuildForm form={form} cancelPath="/builds" />
     </div>
   );
-}
+};

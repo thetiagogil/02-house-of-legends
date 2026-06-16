@@ -7,7 +7,7 @@ import { EmptyState } from "../../shared/components/ui/EmptyState";
 import { Icon } from "../../shared/components/ui/Icon";
 import { LoadingState } from "../../shared/components/ui/LoadingState";
 
-export function EditBuildPage() {
+export const EditBuildPage = () => {
   const navigate = useNavigate();
   const { buildId } = useParams();
   const build = buildId ? readBuild(buildId) : null;
@@ -57,4 +57,4 @@ export function EditBuildPage() {
       <BuildForm form={form} cancelPath="/builds" submitLabel="Save Build" />
     </div>
   );
-}
+};

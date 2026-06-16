@@ -23,7 +23,7 @@ type UseBuildFormInput = {
   onBuildSaved: () => void;
 };
 
-function getInitialSlots(initialBuild: Build | undefined): string[] {
+const getInitialSlots = (initialBuild: Build | undefined): string[] => {
   if (!initialBuild) {
     return [...EMPTY_BUILD_SLOTS];
   }
@@ -31,12 +31,12 @@ function getInitialSlots(initialBuild: Build | undefined): string[] {
   return EMPTY_BUILD_SLOTS.map(
     (emptySlot, index) => initialBuild.items[index]?.id ?? emptySlot,
   );
-}
+};
 
-export function useBuildForm({
+export const useBuildForm = ({
   initialBuild,
   onBuildSaved,
-}: UseBuildFormInput) {
+}: UseBuildFormInput) => {
   const { champions, error, isLoading, items, version } = useBuildFormData();
   const [championId, setChampionId] = useState(initialBuild?.champion.id ?? "");
   const [title, setTitle] = useState(initialBuild?.title ?? "");
@@ -168,6 +168,6 @@ export function useBuildForm({
     totalCost,
     version,
   };
-}
+};
 
 export type BuildFormState = ReturnType<typeof useBuildForm>;

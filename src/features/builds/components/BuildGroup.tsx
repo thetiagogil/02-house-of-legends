@@ -12,12 +12,12 @@ type BuildGroupProps = {
   onChange: () => void;
 };
 
-export function BuildGroup({
+export const BuildGroup = ({
   champion,
   builds,
   version,
   onChange,
-}: BuildGroupProps) {
+}: BuildGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const totalGames = getBuildsTotalGames(builds);
 
@@ -57,4 +57,4 @@ export function BuildGroup({
       )}
     </article>
   );
-}
+};

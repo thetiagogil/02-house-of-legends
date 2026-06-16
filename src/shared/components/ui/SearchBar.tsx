@@ -9,13 +9,13 @@ type SearchBarProps = {
   onClear?: () => void;
 };
 
-export function SearchBar({
+export const SearchBar = ({
   value,
   onChange,
   placeholder,
   label,
   onClear,
-}: SearchBarProps) {
+}: SearchBarProps) => {
   const canClear = Boolean(value && onClear);
   const inputId = useId();
 
@@ -47,4 +47,4 @@ export function SearchBar({
       )}
     </div>
   );
-}
+};

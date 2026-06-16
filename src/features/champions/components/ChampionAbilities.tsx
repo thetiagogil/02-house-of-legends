@@ -8,7 +8,10 @@ type ChampionAbilitiesProps = {
 
 const SPELL_LABELS = ["Q", "W", "E", "R"];
 
-export function ChampionAbilities({ passive, spells }: ChampionAbilitiesProps) {
+export const ChampionAbilities = ({
+  passive,
+  spells,
+}: ChampionAbilitiesProps) => {
   const abilities = [
     {
       id: "passive",
@@ -40,4 +43,4 @@ export function ChampionAbilities({ passive, spells }: ChampionAbilitiesProps) {
       </div>
     </section>
   );
-}
+};

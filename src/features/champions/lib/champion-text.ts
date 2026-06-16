@@ -9,13 +9,13 @@ const NAMED_ENTITIES: Record<string, string> = {
   quot: '"',
 };
 
-function toCodePointText(codePoint: number, fallback: string): string {
+const toCodePointText = (codePoint: number, fallback: string): string => {
   return Number.isFinite(codePoint) && codePoint >= 0 && codePoint <= 0x10ffff
     ? String.fromCodePoint(codePoint)
     : fallback;
-}
+};
 
-function decodeEntity(entity: string): string {
+const decodeEntity = (entity: string): string => {
   const normalized = entity.toLowerCase();
   const fallback = `&${entity};`;
 
@@ -28,17 +28,17 @@ function decodeEntity(entity: string): string {
   }
 
   return NAMED_ENTITIES[normalized] ?? fallback;
-}
+};
 
-export function cleanDataDragonText(value: string): string {
+export const cleanDataDragonText = (value: string): string => {
   return value
     .replace(/<br\s*\/?>/gi, " ")
     .replace(HTML_TAG_PATTERN, " ")
     .replace(HTML_ENTITY_PATTERN, (_, entity: string) => decodeEntity(entity))
     .replace(/\s+/g, " ")
     .trim();
-}
+};
 
-export function cleanDataDragonList(values: string[]): string[] {
+export const cleanDataDragonList = (values: string[]): string[] => {
   return values.map(cleanDataDragonText).filter(Boolean);
-}
+};

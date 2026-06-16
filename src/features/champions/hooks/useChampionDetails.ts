@@ -4,7 +4,7 @@ import { championImages } from "../lib/champion-images";
 import { getAdjacentChampions, getVisibleSkins } from "../lib/champion-skins";
 import type { ChampionDetail, ChampionSummary } from "../types";
 
-export function useChampionDetails(championId?: string) {
+export const useChampionDetails = (championId?: string) => {
   const [champion, setChampion] = useState<ChampionDetail | null>(null);
   const [champions, setChampions] = useState<ChampionSummary[]>([]);
   const [skinIndex, setSkinIndex] = useState(0);
@@ -88,4 +88,4 @@ export function useChampionDetails(championId?: string) {
     splashImage,
     visibleSkins,
   };
-}
+};

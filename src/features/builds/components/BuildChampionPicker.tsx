@@ -15,7 +15,7 @@ type BuildChampionPickerProps = {
   onSelect: (champion: ChampionSummary) => void;
 };
 
-export function BuildChampionPicker({
+export const BuildChampionPicker = ({
   champions,
   selectedChampionId,
   roles,
@@ -24,7 +24,7 @@ export function BuildChampionPicker({
   onSearchChange,
   onRoleChange,
   onSelect,
-}: BuildChampionPickerProps) {
+}: BuildChampionPickerProps) => {
   const filteredChampions = filterChampionOptions(champions, search, role);
 
   return (
@@ -85,4 +85,4 @@ export function BuildChampionPicker({
       </div>
     </>
   );
-}
+};

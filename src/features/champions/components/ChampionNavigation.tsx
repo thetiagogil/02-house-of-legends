@@ -9,12 +9,12 @@ type ChampionNavigationProps = {
   onNext: () => void;
 };
 
-export function ChampionNavigation({
+export const ChampionNavigation = ({
   previousChampion,
   nextChampion,
   onPrevious,
   onNext,
-}: ChampionNavigationProps) {
+}: ChampionNavigationProps) => {
   return (
     <div className="champion-navigation">
       <button
@@ -42,4 +42,4 @@ export function ChampionNavigation({
       </button>
     </div>
   );
-}
+};

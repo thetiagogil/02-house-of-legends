@@ -6,7 +6,7 @@ type BuildPickerPanelProps = {
   form: BuildFormState;
 };
 
-export function BuildPickerPanel({ form }: BuildPickerPanelProps) {
+export const BuildPickerPanel = ({ form }: BuildPickerPanelProps) => {
   const pickerTarget = form.pickerTarget;
 
   return (
@@ -39,4 +39,4 @@ export function BuildPickerPanel({ form }: BuildPickerPanelProps) {
       )}
     </aside>
   );
-}
+};

@@ -5,7 +5,7 @@ type ChampionTipsProps = {
   enemytips: string[];
 };
 
-export function ChampionTips({ allytips, enemytips }: ChampionTipsProps) {
+export const ChampionTips = ({ allytips, enemytips }: ChampionTipsProps) => {
   const allyTips = cleanDataDragonList(allytips);
   const enemyTips = cleanDataDragonList(enemytips);
 
@@ -38,4 +38,4 @@ export function ChampionTips({ allytips, enemytips }: ChampionTipsProps) {
       )}
     </section>
   );
-}
+};

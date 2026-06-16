@@ -1,7 +1,7 @@
 import { homeTiles } from "../_lib/homeTiles";
 import { HomeTile } from "./HomeTile";
 
-export function HomeTiles() {
+export const HomeTiles = () => {
   return (
     <div className="home-tiles">
       {homeTiles.map((tile, index) => (
@@ -16,4 +16,4 @@ export function HomeTiles() {
       ))}
     </div>
   );
-}
+};

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getDataDragonVersion } from "../../lib/data-dragon-version";
 
-export function useDataDragonVersion() {
+export const useDataDragonVersion = () => {
   const [version, setVersion] = useState("");
 
   useEffect(() => {
@@ -25,4 +25,4 @@ export function useDataDragonVersion() {
   }, []);
 
   return version;
-}
+};

@@ -7,7 +7,7 @@ type HouseBadgeProps = {
   size?: "small" | "medium";
 };
 
-export function HouseBadge({ house, size = "small" }: HouseBadgeProps) {
+export const HouseBadge = ({ house, size = "small" }: HouseBadgeProps) => {
   const houseStyle = houseStyles[house];
 
   return (
@@ -18,4 +18,4 @@ export function HouseBadge({ house, size = "small" }: HouseBadgeProps) {
       {house}
     </span>
   );
-}
+};

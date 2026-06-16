@@ -1,6 +1,6 @@
 import type { Build, BuildItem } from "../types";
 
-export function isBuildItem(value: unknown): value is BuildItem {
+export const isBuildItem = (value: unknown): value is BuildItem => {
   if (!value || typeof value !== "object") {
     return false;
   }
@@ -11,9 +11,9 @@ export function isBuildItem(value: unknown): value is BuildItem {
     typeof item.name === "string" &&
     typeof item.price === "number"
   );
-}
+};
 
-export function isBuild(value: unknown): value is Build {
+export const isBuild = (value: unknown): value is Build => {
   if (!value || typeof value !== "object") {
     return false;
   }
@@ -33,4 +33,4 @@ export function isBuild(value: unknown): value is Build {
     typeof build.loss === "number" &&
     typeof build.createdAt === "number"
   );
-}
+};

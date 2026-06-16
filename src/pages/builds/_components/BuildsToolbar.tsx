@@ -7,7 +7,10 @@ type BuildsToolbarProps = {
   onSearchChange: (value: string) => void;
 };
 
-export function BuildsToolbar({ search, onSearchChange }: BuildsToolbarProps) {
+export const BuildsToolbar = ({
+  search,
+  onSearchChange,
+}: BuildsToolbarProps) => {
   return (
     <section className="build-toolbar build-toolbar--cards">
       <SearchBar
@@ -22,4 +25,4 @@ export function BuildsToolbar({ search, onSearchChange }: BuildsToolbarProps) {
       </Link>
     </section>
   );
-}
+};

@@ -1,4 +1,4 @@
-export function HomeHero() {
+export const HomeHero = () => {
   return (
     <section className="home-hero">
       <p className="home-hero__kicker">Welcome, Summoner</p>
@@ -11,4 +11,4 @@ export function HomeHero() {
       </p>
     </section>
   );
-}
+};

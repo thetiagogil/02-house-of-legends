@@ -19,7 +19,7 @@ type ChampionFilterPanelProps = {
   setSearch: (search: string) => void;
 };
 
-export function ChampionFilterPanel({
+export const ChampionFilterPanel = ({
   allRegions,
   allRoles,
   house,
@@ -31,7 +31,7 @@ export function ChampionFilterPanel({
   setRegion,
   setRole,
   setSearch,
-}: ChampionFilterPanelProps) {
+}: ChampionFilterPanelProps) => {
   const activeFilters = [
     search ? `Search: ${search}` : "",
     role ? `Role: ${role}` : "",
@@ -121,4 +121,4 @@ export function ChampionFilterPanel({
       </div>
     </section>
   );
-}
+};

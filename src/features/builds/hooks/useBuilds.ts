@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BUILD_STORAGE_EVENT, readBuilds } from "../storage/build-storage";
 import type { Build } from "../types";
 
-export function useBuilds() {
+export const useBuilds = () => {
   const [builds, setBuilds] = useState<Build[]>(() => readBuilds());
 
   useEffect(() => {
@@ -24,4 +24,4 @@ export function useBuilds() {
   }
 
   return { builds, refreshBuilds };
-}
+};

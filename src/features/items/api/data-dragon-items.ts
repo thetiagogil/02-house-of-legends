@@ -40,7 +40,7 @@ export const ITEM_CATEGORIES: ItemCategory[] = [
   "Trinket",
 ];
 
-export async function fetchItems(): Promise<Item[]> {
+export const fetchItems = async (): Promise<Item[]> => {
   if (!itemsPromise) {
     itemsPromise = getDataDragonVersion()
       .then(async (version) => {
@@ -84,4 +84,4 @@ export async function fetchItems(): Promise<Item[]> {
   }
 
   return itemsPromise;
-}
+};

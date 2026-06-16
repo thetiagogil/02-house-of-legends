@@ -11,14 +11,14 @@ type BuildSlotButtonProps = {
   onClear: () => void;
 };
 
-export function BuildSlotButton({
+export const BuildSlotButton = ({
   slotIndex,
   item,
   version,
   isActive,
   onSelect,
   onClear,
-}: BuildSlotButtonProps) {
+}: BuildSlotButtonProps) => {
   const slotLabel = slotIndex === 0 ? "Boots" : `Item ${slotIndex}`;
 
   return (
@@ -57,4 +57,4 @@ export function BuildSlotButton({
       )}
     </div>
   );
-}
+};

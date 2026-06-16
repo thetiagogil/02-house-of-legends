@@ -8,7 +8,7 @@ type ChampionCardProps = {
   champion: ChampionSummary;
 };
 
-export function ChampionCard({ champion }: ChampionCardProps) {
+export const ChampionCard = ({ champion }: ChampionCardProps) => {
   return (
     <Link to={`/champions/${champion.id}`} className="champion-card">
       <span className="champion-card__image-wrap">
@@ -30,4 +30,4 @@ export function ChampionCard({ champion }: ChampionCardProps) {
       </span>
     </Link>
   );
-}
+};

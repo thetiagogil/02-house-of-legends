@@ -7,7 +7,7 @@ const navItems = [
   { to: "/builds", label: "Builds" },
 ];
 
-export function Navbar() {
+export const Navbar = () => {
   return (
     <header className="navbar">
       <div className="navbar__inner">
@@ -37,4 +37,4 @@ export function Navbar() {
       </div>
     </header>
   );
-}
+};

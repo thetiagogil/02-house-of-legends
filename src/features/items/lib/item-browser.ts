@@ -47,10 +47,10 @@ export const itemCategoryConfig: Record<
   },
 };
 
-export function getItemCounts(
+export const getItemCounts = (
   items: Item[],
   categories: ItemCategory[],
-): Record<ItemCategory, number> {
+): Record<ItemCategory, number> => {
   return categories.reduce(
     (counts, category) => ({
       ...counts,
@@ -58,25 +58,25 @@ export function getItemCounts(
     }),
     {} as Record<ItemCategory, number>,
   );
-}
+};
 
-export function getItemCategoryLabel(category: ActiveItemCategory): string {
+export const getItemCategoryLabel = (category: ActiveItemCategory): string => {
   return category === "All"
     ? "All Artifacts"
     : itemCategoryConfig[category].label;
-}
+};
 
-export function getItemCategoryHint(category: ActiveItemCategory): string {
+export const getItemCategoryHint = (category: ActiveItemCategory): string => {
   return category === "All"
     ? "Every purchasable item in the archive"
     : itemCategoryConfig[category].hint;
-}
+};
 
-export function filterItems(
+export const filterItems = (
   items: Item[],
   activeCategory: ActiveItemCategory,
   search: string,
-): Item[] {
+): Item[] => {
   const query = search.trim().toLowerCase();
 
   return items.filter((item) => {
@@ -93,9 +93,9 @@ export function filterItems(
       item.tags.some((tag) => tag.toLowerCase().includes(query))
     );
   });
-}
+};
 
-export function sortItems(items: Item[], sort: ItemSort): Item[] {
+export const sortItems = (items: Item[], sort: ItemSort): Item[] => {
   return [...items].sort((firstItem, secondItem) => {
     if (sort === "Name") {
       return firstItem.name.localeCompare(secondItem.name);
@@ -107,4 +107,4 @@ export function sortItems(items: Item[], sort: ItemSort): Item[] {
 
     return secondItem.gold.total - firstItem.gold.total;
   });
-}
+};

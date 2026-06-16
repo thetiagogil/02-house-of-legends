@@ -5,6 +5,6 @@ type ErrorStateProps = {
   message: string;
 };
 
-export function ErrorState({ title, message }: ErrorStateProps) {
+export const ErrorState = ({ title, message }: ErrorStateProps) => {
   return <EmptyState title={title} message={message} />;
-}
+};

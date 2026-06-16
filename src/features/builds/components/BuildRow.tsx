@@ -14,7 +14,7 @@ type BuildRowProps = {
   onChange: () => void;
 };
 
-export function BuildRow({ build, version, onChange }: BuildRowProps) {
+export const BuildRow = ({ build, version, onChange }: BuildRowProps) => {
   const {
     changeLosses,
     changeWins,
@@ -134,4 +134,4 @@ export function BuildRow({ build, version, onChange }: BuildRowProps) {
       )}
     </div>
   );
-}
+};

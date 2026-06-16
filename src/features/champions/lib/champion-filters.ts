@@ -8,23 +8,23 @@ export type ChampionFilters = {
   region: Region | null;
 };
 
-export function getChampionRoles(champions: ChampionSummary[]): string[] {
+export const getChampionRoles = (champions: ChampionSummary[]): string[] => {
   return Array.from(
     new Set(champions.flatMap((champion) => champion.tags)),
   ).sort();
-}
+};
 
-export function getChampionRegions(champions: ChampionSummary[]): Region[] {
+export const getChampionRegions = (champions: ChampionSummary[]): Region[] => {
   return Array.from(new Set(champions.map((champion) => champion.region))).sort(
     (firstRegion, secondRegion) =>
       getRegionLabel(firstRegion).localeCompare(getRegionLabel(secondRegion)),
   ) as Region[];
-}
+};
 
-export function filterChampions(
+export const filterChampions = (
   champions: ChampionSummary[],
   filters: ChampionFilters,
-): ChampionSummary[] {
+): ChampionSummary[] => {
   const query = filters.search.trim().toLowerCase();
 
   return champions.filter((champion) => {
@@ -46,4 +46,4 @@ export function filterChampions(
 
     return true;
   });
-}
+};

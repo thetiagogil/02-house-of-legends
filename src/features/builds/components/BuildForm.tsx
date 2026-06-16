@@ -12,11 +12,11 @@ type BuildFormProps = {
   submitLabel?: string;
 };
 
-export function BuildForm({
+export const BuildForm = ({
   form,
   cancelPath,
   submitLabel = "Create Build",
-}: BuildFormProps) {
+}: BuildFormProps) => {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     form.submitBuild();
@@ -69,4 +69,4 @@ export function BuildForm({
       </div>
     </form>
   );
-}
+};

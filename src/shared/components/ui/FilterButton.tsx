@@ -7,12 +7,12 @@ type FilterButtonProps = {
   count?: number;
 };
 
-export function FilterButton({
+export const FilterButton = ({
   active,
   onClick,
   children,
   count,
-}: FilterButtonProps) {
+}: FilterButtonProps) => {
   return (
     <button
       type="button"
@@ -28,4 +28,4 @@ export function FilterButton({
       )}
     </button>
   );
-}
+};

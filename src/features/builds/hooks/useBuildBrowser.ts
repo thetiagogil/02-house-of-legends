@@ -8,7 +8,7 @@ import {
 } from "../lib/build-browser";
 import { useBuilds } from "./useBuilds";
 
-export function useBuildBrowser() {
+export const useBuildBrowser = () => {
   const { builds, refreshBuilds } = useBuilds();
   const version = useDataDragonVersion();
   const [search, setSearch] = useState("");
@@ -27,4 +27,4 @@ export function useBuildBrowser() {
     version,
     visibleBuilds,
   };
-}
+};
