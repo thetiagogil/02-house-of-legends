@@ -1,0 +1,134 @@
+﻿.home-hero {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.home-hero__kicker {
+  color: var(--gold);
+  font-family: var(--font-magic);
+  font-size: 0.875rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+
+.home-hero__title {
+  margin-top: 1rem;
+  color: var(--foreground);
+  font-family: var(--font-magic);
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.05;
+  text-shadow: 0 0 12px color-mix(in oklab, var(--gold) 60%, transparent);
+}
+
+.home-hero__title span {
+  color: var(--gold);
+}
+
+.home-hero__copy {
+  max-width: 36rem;
+  margin: 1.5rem auto 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.home-tiles {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.home-tile {
+  position: relative;
+  display: block;
+  height: 11rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--gold) 20%, transparent);
+  border-radius: var(--radius);
+  background: var(--card);
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.home-tile:hover,
+.home-tile:focus-visible {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.home-tile__image {
+  position: absolute;
+  inset: 0;
+  background-position: center 20%;
+  background-size: cover;
+  filter: saturate(0.5) brightness(0.45);
+  transform: scale(1.05);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+
+.home-tile__image--hover {
+  opacity: 0;
+  filter: saturate(1.1) brightness(0.65);
+}
+
+.home-tile:hover .home-tile__image,
+.home-tile:focus-visible .home-tile__image {
+  transform: scale(1);
+}
+
+.home-tile:hover .home-tile__image--hover,
+.home-tile:focus-visible .home-tile__image--hover {
+  opacity: 1;
+}
+
+.home-tile__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--background),
+    rgb(20 27 38 / 0.4),
+    transparent
+  );
+}
+
+.home-tile__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0 2rem;
+}
+
+.home-tile__chapter {
+  color: color-mix(in oklab, var(--gold) 70%, transparent);
+  font-family: var(--font-magic);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+
+.home-tile__title {
+  margin-top: 0.5rem;
+  color: var(--foreground);
+  font-family: var(--font-magic);
+  font-size: 2rem;
+  line-height: 1.1;
+  text-shadow: 0 0 12px color-mix(in oklab, var(--gold) 60%, transparent);
+  transition: color 180ms ease;
+}
+
+.home-tile:hover .home-tile__title,
+.home-tile:focus-visible .home-tile__title {
+  color: var(--gold);
+}
+
+.home-tile__subtitle {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}

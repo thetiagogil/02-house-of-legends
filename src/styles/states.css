@@ -1,0 +1,88 @@
+﻿.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.form-actions--build-create {
+  border: 1px solid color-mix(in oklab, var(--gold) 16%, transparent);
+  border-radius: var(--radius);
+  background: rgb(8 13 22 / 0.35);
+  padding: 1rem;
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 16rem;
+  color: var(--gold);
+  font-family: var(--font-display);
+}
+
+.loading-spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid color-mix(in oklab, var(--gold) 25%, transparent);
+  border-top-color: var(--gold);
+  border-radius: 999px;
+  animation: spin 800ms linear infinite;
+}
+
+.empty-state {
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.empty-state--large {
+  padding: 5rem 1rem;
+}
+
+.empty-state h2 {
+  margin-bottom: 1rem;
+  color: var(--muted);
+  font-family: var(--font-magic);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.empty-state p {
+  margin-bottom: 1rem;
+}
+
+.center-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.text-link {
+  color: var(--gold);
+  transition: color 180ms ease;
+}
+
+.not-found {
+  display: grid;
+  min-height: calc(100vh - 4rem);
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+.not-found h1 {
+  color: var(--gold);
+  font-family: var(--font-magic);
+  font-size: 4.5rem;
+  text-shadow: 0 0 12px color-mix(in oklab, var(--gold) 60%, transparent);
+}
+
+.not-found p {
+  margin: 1rem 0 1.5rem;
+  color: var(--muted);
+  font-size: 1.125rem;
+}
